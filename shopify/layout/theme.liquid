@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ page_title | escape }}</title>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    {% if settings.favicon %}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {% endif %}
+    {{ 'bundle.css' | asset_url | stylesheet_tag }}
+    {% render 'fonts' %}
+    {{ content_for_header }}
+  </head>
+  <body>
+    <div id="app">
+      {% section 'header' %}
+      <main id="main" role="main">
+        {{ content_for_layout }}
+      </main>
+      {% section 'footer' %}
+    </div>
+    <script src="{{ 'bundle.js' | asset_url }}" defer></script>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+// =============================================
+// DS PROJECT - FONT FACES
+// =============================================
+
+// Mixins pour les propriétés de texte communes
+@mixin text-base($family, $weight, $size, $line-height, $spacing, $case: none) {
+  font-family: $family;
+  font-weight: $weight;
+  font-size: #{$size}px;
+  line-height: #{$line-height}px;
+  letter-spacing: #{$spacing}%;
+  @if $case != none {
+    text-transform: $case;
+  }
+}
+
+// =============================================
+// HEADINGS - RESPONSIVE
+// =============================================
+
+// Heading XXL (Desktop: 128px, Mobile: 56px)
+@mixin heading-xxl {
+  @include text-base('Bricolage Grotesque', bold, 56, 56, -5, uppercase);
+  
+  @media (min-width: 768px) {
+    @include text-base('Bricolage Grotesque', bold, 128, 128, -5, uppercase);
+  }
+}
+
+// Heading XL (Desktop: 64px, Mobile: 48px)
+@mixin heading-xl {
+  @include text-base('Bricolage Grotesque', 500, 48, 50, -5);
+  
+  @media (min-width: 768px) {
+    @include text-base('Bricolage Grotesque', 500, 64, 68, -5);
+  }
+}
+
+// Heading XL Strong (Desktop: 64px, Mobile: 48px)
+@mixin heading-xl-strong {
+  @include text-base('Playfair Display', italic, 48, 50, -5);
+  
+  @media (min-width: 768px) {
+    @include text-base('Playfair Display', italic, 64, 68, -5);
+  }
+}
+
+// Heading LG (Desktop: 40px, Mobile: 32px)
+@mixin heading-lg {
+  @include text-base('Bricolage Grotesque', 500, 32, 38, -5);
+  
+  @media (min-width: 768px) {
+    @include text-base('Bricolage Grotesque', 500, 40, 48, -5);
+  }
+}
+
+// Heading LG Strong (Desktop: 40px, Mobile: 32px)
+@mixin heading-lg-strong {
+  @include text-base('Playfair Display', italic, 32, 38, -5);
+  
+  @media (min-width: 768px) {
+    @include text-base('Playfair Display', italic, 40, 48, -5);
+  }
+}
+
+// Heading MD (Desktop: 32px, Mobile: 24px)
+@mixin heading-md {
+  @include text-base('Bricolage Grotesque', 500, 24, 28, -5);
+  
+  @media (min-width: 768px) {
+    @include text-base('Bricolage Grotesque', 500, 32, 38, -5);
+  }
+}
+
+// Heading MD Strong (Desktop: 32px, Mobile: 24px)
+@mixin heading-md-strong {
+  @include text-base('Playfair Display', italic, 24, 28, -5);
+  
+  @media (min-width: 768px) {
+    @include text-base('Playfair Display', italic, 32, 38, -5);
+  }
+}
+
+// Heading SM (Desktop: 20px, Mobile: 18px)
+@mixin heading-sm {
+  @include text-base('Bricolage Grotesque', 500, 18, 21.6, -5);
+  
+  @media (min-width: 768px) {
+    @include text-base('Bricolage Grotesque', 500, 20, 24, -5);
+  }
+}
+
+// =============================================
+// BODY TEXT - GLOBAL (même valeur desktop/mobile)
+// =============================================
+
+// Body MD
+@mixin body-md {
+  @include text-base('JetBrains Mono', 500, 16, 24, -5);
+}
+
+// Body SM
+@mixin body-sm {
+  @include text-base('JetBrains Mono', 400, 14, 21, -4);
+}
+
+// Caption
+@mixin caption {
+  @include text-base('JetBrains Mono', 400, 14, 20, -4, uppercase);
+}
+
+// =============================================
+// CLASSES CSS UTILITAIRES
+// =============================================
+
+.heading-xxl {
+  @include heading-xxl;
+}
+
+.heading-xl {
+  @include heading-xl;
+}
+
+.heading-xl-strong {
+  @include heading-xl-strong;
+}
+
+.heading-lg {
+  @include heading-lg;
+}
+
+.heading-lg-strong {
+  @include heading-lg-strong;
+}
+
+.heading-md {
+  @include heading-md;
+}
+
+.heading-md-strong {
+  @include heading-md-strong;
+}
+
+.heading-sm {
+  @include heading-sm;
+}
+
+.body-md {
+  @include body-md;
+}
+
+.body-sm {
+  @include body-sm;
+}
+
+.caption {
+  @include caption;
+}
+
+// =============================================
+// EXEMPLE D'UTILISATION
+// =============================================
+
+/*
+// Dans votre SCSS :
+.mon-titre {
+  @include heading-xl;
+}
+
+// Ou directement avec les classes :
+<h1 class="heading-xxl">Mon titre</h1>
+<p class="body-md">Mon paragraphe</p>
+*/
