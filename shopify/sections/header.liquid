@@ -1,15 +1,47 @@
-
-<div class="header-menu fixed w-full z-50">
+<div 
+  x-data="{
+    isHeaderHidden: false,
+    lastScrollY: 0,
+    init() {
+      this.lastScrollY = window.scrollY;
+      window.addEventListener('scroll', () => this.handleScroll());
+    },
+    handleScroll() {
+      const currentScrollY = window.scrollY;
+      
+      // Hide header when scrolling down, show when scrolling up
+      if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
+        this.isHeaderHidden = true;
+      } else if (currentScrollY < this.lastScrollY) {
+        this.isHeaderHidden = false;
+      }
+      
+      this.lastScrollY = currentScrollY;
+    }
+  }"
+  class="header-menu fixed w-full z-50 transition-transform duration-300"
+  :class="{ '-translate-y-full': isHeaderHidden }"
+>
   {% render 'header-caroussel' %}
-  <div class="px-8 py-6 flex justify-between">
+  <div class="px-8 py-3 flex justify-between items-center relative">
     <a href="{{ routes.root_url }}">
       Purely
     </a>
     
     {% render 'layout-menu' %}
     
-    <a href="{{ routes.cart_url }}">
-      {{ 'action.cart' | t }}
-    </a>
+    <div class="header-menu__cta flex flex-wrap items-center gap-4">
+      <a href="#" class="button button--primary">
+        Décourir le produit
+        <img src="{{ 'asterisk.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+      </a>
+      <a href="{{ routes.cart_url }}" class="header-menu__cta__cart button-icon button-icon--large button-icon--filled relative transition-colors">
+        <!-- Icône panier -->
+        <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Cart" class="w-6 h-6" width="24" height="24">
+        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+          {{ cart.item_count }}
+        </span>
+      </a>
+    </div>
   </div>
 </div>
