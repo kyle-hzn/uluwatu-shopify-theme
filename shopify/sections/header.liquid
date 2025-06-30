@@ -1,9 +1,15 @@
-<a href="{{ routes.root_url }}">
-  Logo
-</a>
 
-{% render 'layout-menu' %}
-
-<a href="{{ routes.cart_url }}">
-  {{ 'action.cart' | t }}
-</a>
+<div class="header-menu fixed w-full z-50">
+  {% render 'header-caroussel' %}
+  <div class="px-8 py-6 flex justify-between">
+    <a href="{{ routes.root_url }}">
+      Purely
+    </a>
+    
+    {% render 'layout-menu' %}
+    
+    <a href="{{ routes.cart_url }}">
+      {{ 'action.cart' | t }}
+    </a>
+  </div>
+</div>
