@@ -2,9 +2,17 @@
   "sections": {
     "hero": {
       "type": "homepage-hero"
+    },
+    "intro": {
+      "type": "homepage-intro"
+    },
+    "what": {
+      "type": "homepage-what"
     }
   },
   "order": [
-    "hero"
+    "hero",
+    "intro",
+    "what"
   ]
 }

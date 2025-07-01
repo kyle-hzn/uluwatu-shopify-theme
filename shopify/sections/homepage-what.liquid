@@ -1,0 +1,85 @@
+<div class="cards-wrap flex w-full flex-col lg:flex-row">
+  {% for block in section.blocks %}
+    <div class="card w-full p-3 lg:p-6 h-auto flex items-center justify-center flex-col lg:gap-6 text-center">
+      <div class="card__icon">
+        {% if block.settings.icon %}
+          <img
+            src="{{ block.settings.icon | image_url: width: 48 }}"
+            alt="Icon"
+            class="w-6 h-6"
+            width="24"
+            height="24"
+          >
+        {% else %}
+          <img
+            src="{{ 'asterisk-black.static.svg' | asset_url }}"
+            alt="Default icon"
+            class="w-6 h-6"
+            width="24"
+            height="24"
+          >
+        {% endif %}
+      </div>
+      <p class="heading-sm text-primary">
+        {{ block.settings.text }}
+      </p>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="cover-section relative p-3 lg:p-8 h-screen">
+    <div class="absolute inset-x-0 left-3 right-3 bottom-3 lg:bottom-8 flex justify-center">
+        {% render 'cta-banner' %}
+    </div>
+    {% if section.settings.background_image %}
+    <img
+        class="absolute -z-20 top-0 left-0 w-full h-full object-cover"
+        src="{{ section.settings.background_image | image_url: width: 2000 }}"
+        alt="Background image"
+        width="2000"
+        height="auto"
+    >
+    {% else %}
+    <!-- Image par défaut si aucune image n'est sélectionnée -->
+    <div class="absolute -z-20 top-0 left-0 w-full h-full bg-gradient-to-br from-gray-400 to-gray-600"></div>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Homepage Cards",
+  "tag": "section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Card text",
+          "default": "Préserve la santé de votre peau"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Cards"
+    }
+  ]
+}
+{% endschema %}

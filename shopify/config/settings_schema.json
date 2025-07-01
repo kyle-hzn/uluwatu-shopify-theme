@@ -30,5 +30,32 @@
         "info": "t:settings_schema.favicon.settings.info"
       }
     ]
+  },
+  {
+    "name": "Bannière CTA globale",
+    "settings": [
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "Texte du CTA",
+        "default": "Transformer ma routine"
+      },
+      {
+        "type": "text",
+        "id": "cta_button_label",
+        "label": "Texte du bouton",
+        "default": "Découvrir le produit"
+      },
+      {
+        "type": "url",
+        "id": "cta_button_link",
+        "label": "Lien du bouton"
+      },
+      {
+        "type": "image_picker",
+        "id": "cta_icon",
+        "label": "Icône du bouton"
+      }
+    ]
   }
 ]

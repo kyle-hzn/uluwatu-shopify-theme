@@ -1,11 +1,15 @@
 <!-- htmlhint-disable IMG_NOT_EMPTY -->
-<div class="h-screen p-8 flex items-end relative">
+<div class="h-screen p-3 lg:p-8 flex items-end relative mb-16">
     <div class="hero-content flex flex-col gap-4 w-full lg:w-[60%] z-10">
         <p class="body-sm text-primary-invert">
             {{ section.settings.subtitle | default: 'Nettoyez vos pinceaux de maquillages sans efforts' }}
         </p>
         <h1 class="heading-xl text-primary-invert">
-            {{ section.settings.title | default: 'Votre skincare commence par des pinceaux propres' }}
+            {% if section.settings.title != blank %}
+                {{ section.settings.title }}
+            {% else %}
+                Votre skincare commence par des <strong class="heading-xl-strong">pinceaux propres</strong>
+            {% endif %}
         </h1>
         {% render 'cta-banner' %}
     </div>
@@ -28,10 +32,10 @@
   "class": "hero-section",
   "settings": [
     {
-      "type": "text",
+      "type": "textarea",
       "id": "title",
-      "label": "Titre principal",
-      "default": "Votre skincare commence par des pinceaux propres"
+      "label": "Titre principal (use HTML tags: <strong> for emphasis)",
+      "default": "Votre skincare commence par des <strong>pinceaux propres</strong>"
     },
     {
       "type": "text",

@@ -1,6 +1,11 @@
-<div class="cta-banner px-3 py-2 flex flex-wrap w-fit items-center gap-4 rounded-2xl">
-    <p class="body-sm">Transformer ma routine</p>
-    <a href="#" class="button button--primary">
-        Décourir le produit
-    </a>
+<div class="cta-banner px-3 py-2 flex flex-col lg:flex-row w-full lg:w-fit items-center gap-2 lg:gap-4 rounded-2xl">
+  <p class="body-sm text-center w-full">{{ settings.cta_text }}</p>
+  <a href="{{ settings.cta_button_link | default: '#' }}" class="button button--primary w-full">
+    {{ settings.cta_button_label }}
+    {% if settings.cta_icon %}
+      <img src="{{ settings.cta_icon | image_url: width: 24 }}" alt="Icône" class="w-6 h-6" width="24" height="24">
+    {% else %}
+      <img src="{{ 'asterisk.static.svg' | asset_url }}" alt="Icône" class="w-6 h-6" width="24" height="24">
+    {% endif %}
+  </a>
 </div>

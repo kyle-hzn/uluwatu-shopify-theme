@@ -1,0 +1,41 @@
+<div class="homepage-intro p-3 lg:px-8 flex flex-col lg:flex-wrap mb-16 gap-2">
+    <div class="flex flex-wrap items-top gap-2 lg:w-[30%]">
+        <img src="{{ 'asterisk-black.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+        <p class="caption">
+            {{ section.settings.intro_caption | default: "C'est quoi Purely ?" }}
+        </p>
+    </div>
+    <h1 class="heading-xl text-primary lg:w-[70%]">
+        {% if section.settings.intro_title != blank %}
+            {% assign custom_title = section.settings.intro_title | replace: '<em>', '<strong class="heading-xl-strong">' | replace: '</em>', '</strong>' | replace: '<i>', '<strong class="heading-xl-strong">' | replace: '</i>', '</strong>' | replace: '<p>', '' | replace: '</p>', '' %}
+            {{ custom_title }}
+        {% else %}
+            Un nettoyage <strong class="heading-xl-strong">rapide</strong> et <strong class="heading-xl-strong">hygiénique</strong> — pour les <strong class="heading-xl-strong">pinceaux</strong>, la <strong class="heading-xl-strong">peau</strong> et votre <strong class="heading-xl-strong">routine</strong> beauté.
+        {% endif %}
+    </h1>
+</div>
+
+{% schema %}
+{
+  "name": "Homepage Intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "intro_caption",
+      "label": "Caption Text",
+      "default": "C'est quoi Purely ?"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_title",
+      "label": "Main Title (use HTML tags: <strong> for emphasis)",
+      "default": "Un nettoyage <strong>rapide</strong> et <strong>hygiénique</strong> — pour les <strong>pinceaux</strong>, la <strong>peau</strong> et votre <strong>routine</strong> beauté."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Intro"
+    }
+  ]
+}
+{% endschema %}
