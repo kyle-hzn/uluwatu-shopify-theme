@@ -1,0 +1,22 @@
+<table class="comparaison-table w-full">
+  <thead>
+    <tr class="comparaison-table__head body-md text-primary">
+      <th class="p-3 lg:p-6">{{ settings.column_1 }}</th>
+      <th class="p-3 lg:p-6">{{ settings.column_2 }}</th>
+      <th class="p-3 lg:p-6">{{ settings.column_3 }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for block in blocks %}
+      <tr class="comparaison-table__row body-md text-primary">
+        <td class="p-3 lg:p-6">{{ block.settings.label }}</td>
+        <td class="p-3 lg:p-6">
+          <img class="m-auto block w-6 h-6" src="{{ 'check.static.svg' | asset_url }}" alt="Icône coche positive" width="24" height="24">
+        </td>
+        <td class="p-3 lg:p-6">
+          <img class="m-auto block w-6 h-6" src="{{ 'cross.static.svg' | asset_url }}" alt="Icône croix négative" width="24" height="24">
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

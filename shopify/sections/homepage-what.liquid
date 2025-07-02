@@ -27,13 +27,13 @@
   {% endfor %}
 </div>
 
-<div class="cover-section relative p-3 lg:p-8 h-screen">
+<div class="cover-section relative lg:p-8 h-auto lg:h-screen mb-24">
     <div class="absolute inset-x-0 left-3 right-3 bottom-3 lg:bottom-8 flex justify-center">
         {% render 'cta-banner' %}
     </div>
     {% if section.settings.background_image %}
     <img
-        class="absolute -z-20 top-0 left-0 w-full h-full object-cover"
+        class="lg:absolute -z-20 top-0 left-0 w-full h-auto lg:h-full object-cover"
         src="{{ section.settings.background_image | image_url: width: 2000 }}"
         alt="Background image"
         width="2000"

@@ -8,11 +8,19 @@
     },
     "what": {
       "type": "homepage-what"
+    },
+    "why": {
+      "type": "homepage-why",
+    },
+    "steps": {
+      "type": "homepage-steps"
     }
   },
   "order": [
     "hero",
     "intro",
-    "what"
+    "what",
+    "why",
+    "steps"
   ]
 }

@@ -1,0 +1,165 @@
+{% schema %}
+{
+  "name": "Homepage Steps",
+  "settings": [
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Sous-titre (petit)",
+      "default": "Insérez, Lavez & séchez"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre principal",
+      "default": "Nettoyez vos pinceaux en 3 étapes"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Vidéo (MP4)"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Poster de vidéo"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_number",
+          "label": "Numéro",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "step_text",
+          "label": "Texte",
+          "default": "Versez & Immergez vos pinceaux"
+        }
+      ]
+    },
+    {
+      "type": "marquee",
+      "name": "Bloc Marquee",
+      "settings": [
+        {
+          "type": "text",
+          "id": "marquee_title",
+          "label": "Titre du bloc",
+          "default": "Convient à tous les pinceaux"
+        },
+        {
+          "type": "textarea",
+          "id": "marquee_items",
+          "label": "Éléments à faire défiler (séparés par une virgule)",
+          "default": "Pinceaux plats,Pinceaux ronds,Pinceaux fluffy"
+        },
+        {
+          "type": "image_picker",
+          "id": "marquee_image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Steps",
+      "category": "Homepage",
+      "blocks": [
+        {
+          "type": "step"
+        },
+        {
+          "type": "step"
+        },
+        {
+          "type": "step"
+        },
+        {
+          "type": "marquee"
+        },
+        {
+          "type": "marquee"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="homepage-steps px-3 pt-8 pb-3 lg:p-8 rounded-3xl">
+  <div class="homepage-steps__head flex flex-col gap-2 items-center mb-10">
+    <div class="flex flex-wrap items-top gap-2">
+      <img src="{{ 'asterisk-black.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+      <p class="caption text-center">{{ section.settings.caption }}</p>
+    </div>
+    <h3 class="heading-lg text-primary text-center">{{ section.settings.title }}</h3>
+  </div>
+
+  <div class="homepage-steps__wrapper flex flex-col lg:flex-row items-center gap-6">
+    <div class="homepage-steps__wrapper__l flex flex-col gap-6 flex-1 w-full">
+      {% for block in section.blocks %}
+        {% if block.type == 'step' %}
+          <div class="homepage-steps__wrapper__l__step pb-6">
+            <p class="heading-xl text-secondary">{{ block.settings.step_number }}</p>
+            <h4 class="heading-md text-primary">{{ block.settings.step_text }}</h4>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="homepage-steps__wrapper__r flex-1">
+      <div class="w-full aspect-square rounded-xl overflow-hidden">
+        <video
+          autoplay
+          muted
+          playsinline
+          loop
+          {% if section.settings.video_poster != blank %}poster="{{ section.settings.video_poster | image_url }}"{% endif %}
+          class="w-full h-full object-cover"
+        >
+          {% if section.settings.video_url != blank %}
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+          {% endif %}
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider my-6 lg:my-8"></div>
+
+  <div class="homepage-steps__more flex flex-col lg:flex-row gap-3 lg:gap-6">
+    {% assign marquee_blocks = section.blocks | where: "type", "marquee" %}
+    {% for block in marquee_blocks %}
+      <div class="homepage-steps__more__marquee p-4 lg:p-8 rounded-xl flex flex-col gap-4 flex-1 min-w-0">
+        <h4 class="heading-md text-primary">{{ block.settings.marquee_title }}</h4>
+        <div class="homepage-steps__more swiper marquee-swiper overflow-hidden w-full min-w-0">
+          <div class="swiper-wrapper">
+            {% assign items = block.settings.marquee_items | split: "," %}
+            {% for item in items %}
+              <div class="homepage-steps__more__marquee__slide swiper-slide text-primary heading-sm px-4">• {{ item | strip }}</div>
+            {% endfor %}
+          </div>
+        </div>
+        {% if block.settings.marquee_image %}
+          <div class="homepage-steps__more__thumbnail w-full aspect-[25/7]">
+            <img
+              src="{{ block.settings.marquee_image | image_url }}"
+              alt="Hero image"
+              class="w-full h-full object-cover rounded-xl"
+              width="400"
+              height="112"
+            >
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

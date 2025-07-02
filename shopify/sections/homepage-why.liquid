@@ -1,0 +1,120 @@
+<div class="homepage-why p-3 lg:p-8 flex flex-col lg:flex-row mb-24">
+  <div class="homepage-why__l flex-1 flex flex-col justify-between">
+    <div class="homepage-why__l__title flex flex-col gap-2 lg:gap-4 mb-4">
+      <div class="flex flex-wrap items-top gap-2">
+        <img src="{{ 'asterisk-black.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+        <p class="caption">
+          {{ section.settings.caption }}
+        </p>
+      </div>
+      <h3 class="heading-lg text-primary">
+        {{ section.settings.heading }}
+      </h3>
+    </div>
+
+    <div class="homepage-why__keystat aspect-square w-full lg:w-96 lg:h-96 p-6 lg:p-8 flex flex-col gap-2 rounded-xl justify-center">
+      <p class="heading-xl text-primary-invert">
+        {{ section.settings.stat_number }}
+      </p>
+      <p class="body-md text-secondary-invert">
+        {{ section.settings.stat_description }}
+      </p>
+    </div>
+  </div>
+
+  <div class="homepage-why__r flex-1">
+    <table class="comparaison-table w-full">
+      <thead>
+        <tr class="comparaison-table__head body-sm lg:body-md text-primary">
+          <th class="p-3 lg:p-6">{{ section.settings.column_1 }}</th>
+          <th class="p-3 lg:p-6">{{ section.settings.column_2 }}</th>
+          <th class="p-3 lg:p-6">{{ section.settings.column_3 }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for block in section.blocks %}
+          <tr class="comparaison-table__row body-sm lg:body-md text-primary">
+            <td class="p-3 lg:p-6">{{ block.settings.label }}</td>
+            <td class="p-3 lg:p-6">
+              <img class="m-auto block w-6 h-6" src="{{ 'check.static.svg' | asset_url }}" alt="Icône coche positive" width="24" height="24">
+            </td>
+            <td class="p-3 lg:p-6">
+              <img class="m-auto block w-6 h-6" src="{{ 'cross.static.svg' | asset_url }}" alt="Icône croix négative" width="24" height="24">
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Homepage Why",
+  "settings": [
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Texte du petit label",
+      "default": "L’avantage Purely ?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre principal",
+      "default": "Pourquoi utiliser notre nettoyeur automatique de pinceaux ?"
+    },
+    {
+      "type": "text",
+      "id": "stat_number",
+      "label": "Chiffre clé",
+      "default": "100.000 bactéries"
+    },
+    {
+      "type": "textarea",
+      "id": "stat_description",
+      "label": "Description du chiffre",
+      "default": "C’est le nombre que peut contenir un pinceau en seulement 3 semaines sans lavage, selon une étude sur 467 accessoires de maquillage."
+    },
+    {
+      "type": "text",
+      "id": "column_1",
+      "label": "Titre colonne 1",
+      "default": "Critère"
+    },
+    {
+      "type": "text",
+      "id": "column_2",
+      "label": "Titre colonne 2",
+      "default": "Avec Purely"
+    },
+    {
+      "type": "text",
+      "id": "column_3",
+      "label": "Titre colonne 3",
+      "default": "Sans nettoyage"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Ligne de comparaison",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texte de la ligne",
+          "default": "Santé de la peau"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Homepage Why",
+      "category": "Homepage"
+    }
+  ]
+}
+{% endschema %}
