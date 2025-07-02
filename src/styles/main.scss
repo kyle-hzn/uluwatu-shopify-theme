@@ -6,12 +6,20 @@
 // Components
 @use 'components/buttons';
 @use 'components/forms';
+@use 'components/header-menu';
+@use 'components/header-caroussel';
+@use 'components/cta-banner';
+@use 'components/cards';
+@use 'components/table';
+@use 'components/divider';
 
 // Pages
 @use 'pages/homepage';
 
 // Sections
 @use 'sections/homepage-hero';
+@use 'sections/homepage-why';
+@use 'sections/homepage-steps';
 
 // Tailwind layers
 @tailwind base;

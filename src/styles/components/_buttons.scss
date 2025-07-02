@@ -1,0 +1,55 @@
+@use '../base/variables';
+@use '../base/typography';
+
+.button {
+    @include typography.body-md;
+    display: flex;
+    padding: 16px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    &--primary {
+        background-color: variables.$cta-primary-default;
+        color: variables.$text-primary-invert;
+        &:hover {
+            background-color: variables.$cta-primary-hover;
+        }
+    }
+    &--outlined {
+        border: 1px solid variables.$cta-primary-default;
+        color: variables.$text-primary-invert;
+        &:hover {
+            background-color: variables.$cta-primary-default;
+        }
+    }
+    &--link {
+        &:hover {
+            background-color: variables.$cta-primary-default;
+        }
+    }
+}
+
+.button-icon {
+    border-radius: 12px;
+    text-transform: uppercase;
+    &--default {
+        padding: 12px;
+    }
+    &--large {
+        padding: 16px;
+    }
+    &--filled {
+        background-color: variables.$cta-primary-default;
+    }
+    &--outlined {
+        border: 1px solid variables.$cta-primary-default;
+    }
+    &--link {
+        &:hover {
+            background-color: variables.$cta-primary-default;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+@use '../base/variables';
+
+.comparaison-table {
+    &__row {
+        &:nth-child(odd) {
+            background-color: variables.$bg-tertiary;
+        }
+        
+        &:nth-child(even) {
+            background-color: variables.$bg-primary;
+        }
+
+        td {
+            &:first-child {
+                border-top-left-radius: 0.75rem;
+                border-bottom-left-radius: 0.75rem;
+            }
+    
+            &:last-child {
+                border-top-right-radius: 0.75rem;
+                border-bottom-right-radius: 0.75rem;
+            }
+        }
+    }
+}

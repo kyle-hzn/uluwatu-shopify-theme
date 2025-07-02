@@ -1,0 +1,17 @@
+.header-menu {
+    background: rgba(247, 247, 247, 0.70);
+    backdrop-filter: blur(8px);
+}
+
+.header-menu__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; // equivalent of Tailwind's gap-4
+
+  flex-direction: column;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
+}

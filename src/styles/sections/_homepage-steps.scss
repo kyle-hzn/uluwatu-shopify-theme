@@ -1,0 +1,37 @@
+@use '../base/variables';
+
+.homepage-steps {
+    background-color: variables.$bg-tertiary;
+
+    &__wrapper {
+        &__l {
+            &__step {
+                border-bottom: 1px solid variables.$border-default;
+            }
+        }
+    }
+
+    &__more {
+        &__marquee {
+            &:first-child {
+                background-color: variables.$bg-warning;
+            }
+            
+            &:last-child {
+                background-color: variables.$bg-info;
+            }
+        }
+    }
+
+    &__more {
+        &__marquee {
+            &__slide {
+                width: auto !important;
+            }
+        }
+    }
+}
+
+.swiper-wrapper {
+  transition-timing-function: linear !important;
+}

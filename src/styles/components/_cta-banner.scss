@@ -1,0 +1,7 @@
+@use '../base/variables';
+@use '../base/typography';
+
+.cta-banner {
+    background: rgba(247, 247, 247, 0.70);
+    backdrop-filter: blur(8px);
+}

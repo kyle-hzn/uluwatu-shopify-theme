@@ -1,0 +1,7 @@
+@use '../base/variables';
+
+.homepage-why {
+ &__keystat {
+    background-color: variables.$bg-secondary;
+ }   
+}

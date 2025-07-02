@@ -1,0 +1,12 @@
+@use '../base/variables';
+
+.card {
+    border-top: 1px solid variables.$border-default;
+    border-bottom: 1px solid variables.$border-default;
+    @media (min-width: 1024px) {
+        border-right: 1px solid variables.$border-default;
+    }
+    &:last-child {
+        border-right: none;
+    }
+}
