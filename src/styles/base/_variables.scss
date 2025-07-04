@@ -34,3 +34,7 @@ $icon-primary:    #777572;
 $icon-secondary:  #a3b49c;
 $icon-invert:     #f2efea;
 $icon-cta:        #212121;
+
+:root {
+  --icon-invert: #{$icon-invert};
+}

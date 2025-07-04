@@ -64,6 +64,9 @@ img, picture, video, canvas, svg {
     scroll-behavior: auto !important;
   }
 }
+:root {
+  --icon-invert: #f2efea;
+}
 .heading-xxl {
   font-family: "Bricolage Grotesque";
   font-weight: bold;
@@ -305,6 +308,8 @@ img, picture, video, canvas, svg {
 .button-icon {
   border-radius: 12px;
   text-transform: uppercase;
+  display: flex;
+  flex-shrink: 0;
 }
 .button-icon--default {
   padding: 12px;
@@ -399,6 +404,26 @@ img, picture, video, canvas, svg {
 .list-post {
   border-bottom: 1px solid #d8d2c8;
   width: calc(50% - 0.75rem);
+}
+.accordeon {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 16px;
+  width: 100%;
+}
+.accordeon__head {
+  display: flex;
+  flex-direction: wrap;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+}
+.accordeon--default {
+  border-bottom: 1px solid #d8d2c8;
+}
+.accordeon--active {
+  border-bottom: 1px solid #212121;
 }
 body {
   background-color: #f7f7f7;
@@ -1010,12 +1035,6 @@ video {
 .mb-6{
   margin-bottom: 1.5rem;
 }
-.mb-80{
-  margin-bottom: 20rem;
-}
-.mb-96{
-  margin-bottom: 24rem;
-}
 .mb-\[80px\]{
   margin-bottom: 80px;
 }
@@ -1108,6 +1127,9 @@ video {
 .translate-x-full{
   --tw-translate-x: 100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.cursor-pointer{
+  cursor: pointer;
 }
 .snap-x{
   scroll-snap-type: x var(--tw-scroll-snap-strictness);
@@ -1289,8 +1311,16 @@ video {
 .opacity-30{
   opacity: 0.3;
 }
+.opacity-50{
+  opacity: 0.5;
+}
 .transition{
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-all{
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1383,6 +1413,9 @@ video {
   }
   .lg\:w-\[30\%\]{
     width: 30%;
+  }
+  .lg\:w-\[50\%\]{
+    width: 50%;
   }
   .lg\:w-\[60\%\]{
     width: 60%;

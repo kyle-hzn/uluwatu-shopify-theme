@@ -278,10 +278,14 @@
       "type": "main-blog",
       "name": "Articles du blog",
       "settings": {
-        "blog": "",
-        "section_title": "Nos derniers articles",
-        "articles_count": 3
+        "caption": "Nos conseils & analyses",
+        "title": "Le blog santé",
+        "blog": "infos",
+        "articles_count": 4
       }
+    },
+    "FAQ": {
+      "type": "faq"
     }
   },
   "order": [
@@ -293,6 +297,7 @@
     "reviews",
     "benefits",
     "socials",
-    "main_blog_imGJDw"
+    "main_blog_imGJDw",
+    "FAQ"
   ]
 }
