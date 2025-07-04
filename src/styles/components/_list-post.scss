@@ -1,0 +1,6 @@
+@use '../base/variables';
+
+.list-post {
+    border-bottom: 1px solid variables.$border-default;
+    width: calc(50% - 0.75rem);
+}

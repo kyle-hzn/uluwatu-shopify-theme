@@ -9,6 +9,10 @@
     gap: 4px;
     padding: 4px 8px;
     @include typography.body-sm;
+    &--default {
+        background-color: variables.$bg-tertiary;
+        color: variables.$text-primary;
+    }
     &--success {
         background-color: variables.$bg-success;
         color: variables.$text-success;

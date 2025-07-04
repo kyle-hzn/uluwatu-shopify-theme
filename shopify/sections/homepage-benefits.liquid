@@ -51,13 +51,15 @@
   </div>
 
   <div class="homepage-benefits__r flex-1">
-    <div class="h-screen w-full rounded-xl relative overflow-hidden">
+    <div class="relative w-full overflow-hidden rounded-xl aspect-[25/7] lg:aspect-auto lg:h-screen">
       {% if section.settings.image != blank %}
-        <img class="absolute top-0 left-0 w-full h-full object-cover"
-             src="{{ section.settings.image | image_url: width: 1200 }}"
-             alt="Image bénéfices"
-             width="1200"
-             height="auto">
+        <img
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          alt="Image bénéfices"
+          class="w-full h-full object-cover"
+          width="1200"
+          height="auto"
+        >
       {% else %}
         <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-500 text-sm">
           Aucune image sélectionnée

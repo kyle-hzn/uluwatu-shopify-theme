@@ -1,50 +1,78 @@
 {% schema %}
 {
-  "name": "Blog en vedette",
+  "name": "Blog Section",
   "tag": "section",
   "settings": [
     {
-      "type": "blog",
-      "id": "blog",
-      "label": "Choisir un blog",
+      "type": "text",
+      "id": "caption",
+      "label": "Caption",
+      "default": "Nos conseils & analyses"
     },
     {
       "type": "text",
-      "id": "section_title",
-      "label": "Titre de la section",
-      "default": "Nos derniers articles"
+      "id": "title",
+      "label": "Title",
+      "default": "Le blog santé"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
     },
     {
       "type": "number",
       "id": "articles_count",
-      "label": "Nombre d’articles à afficher",
-      "default": 3
-    }
-  ],
-  "presets": [
-    {
-      "name": "Articles du blog",
-      "category": "Blog"
+      "label": "Nombre d'articles",
+      "default": 4
     }
   ]
 }
 {% endschema %}
 
-<div class="blog-featured-section">
-  <h2>{{ section.settings.section_title }}</h2>
-  {% assign articles = blogs[section.settings.blog].articles | slice: 0, section.settings.articles_count %}
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    {% for article in articles %}
-      <div class="article-card">
-        <a href="{{ article.url }}">
-          {% if article.image %}
-            <img src="{{ article.image | img_url: '600x' }}" alt="{{ article.image.alt | escape }}" width="100%" height="auto">
-          {% endif %}
-          <h3>{{ article.title }}</h3>
-          <p>{{ article.excerpt | strip_html | truncate: 100 }}</p>
-        </a>
+<div class="homepage-blog p-3 lg:p-8">
+  <div class="homepage-blog__head mb-6 lg:mb-8 flex flex-wrap justify-between items-center gap-6 lg:gap-0">
+    <div class="flex flex-col">
+      <div class="flex flex-wrap gap-2">
+        <img src="{{ 'asterisk-black.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+        <p class="caption">{{ section.settings.caption }}</p>
       </div>
-    {% endfor %}
+      <h3 class="heading-lg text-primary">{{ section.settings.title }}</h3>
+    </div>
+    <a href="{{ blogs[section.settings.blog].url }}" class="button button--primary w-full lg:w-fit">
+      Voir tous les articles
+      <img src="{{ 'asterisk.static.svg' | asset_url }}" alt="Icône" class="w-6 h-6" width="24" height="24">
+    </a>
   </div>
+
+  <div class="overflow-x-auto lg:overflow-visible -mx-3 lg:mx-0 p-3 lg:p-0">
+    <div class="flex gap-6 snap-x scroll-smooth w-max lg:grid lg:grid-cols-2 lg:w-full">
+        {% for article in blogs[section.settings.blog].articles limit: section.settings.articles_count %}
+        <div class="flex flex-col lg:flex-row list-post snap-start flex-shrink-0 w-[80vw] lg:w-full pb-6 lg:pb-10 gap-4 lg:gap-6">
+            <div class="list-post__thumbnail rounded-xl w-full lg:aspect-square w-full lg:w-1/3 flex-shrink-0 overflow-hidden">
+                <img class="w-full h-full object-cover" src="{{ article.image | img_url: '600x600' }}" alt="{{ article.title | escape }}" width="100%" height="auto">
+            </div>
+            <div class="list-post__wrap w-full flex flex-col justify-between gap-6 lg:gap-0">
+                <div class="flex flex-col gap-2">
+                    <div class="list-post__wrap__head flex flex-wrap justify-between items-start">
+                    <p class="list-post__wrap__author body-sm text-secondary">
+                        {{ article.published_at | date: "%d %B %Y" }}
+                    </p>
+                    <div class="tag tag--default">
+                        {{ article.content | strip_html | size | divided_by: 750 | ceil }} min. de lecture
+                    </div>
+                    </div>
+                    <p class="list-post__wrap__title heading-sm text-primary h-full lg:h-auto h-[4.5rem] overflow-hidden line-clamp-3">
+                        {{ article.title }}
+                    </p>
+                </div>
+                <a href="{{ article.url }}" class="button button--outlined w-full lg:w-fit">
+                    Lire l'article
+                    <img src="{{ 'arrow_outward.static.svg' | asset_url }}" alt="Icône" class="w-6 h-6" width="24" height="24">
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
 </div>

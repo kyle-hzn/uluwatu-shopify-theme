@@ -176,13 +176,113 @@
     },
     "reviews": {
       "type": "homepage-reviews",
+      "blocks": {
+        "review_dtgUVP": {
+          "type": "review",
+          "settings": {
+            "review_text": "Je n’aurais jamais cru que nettoyer mes pinceaux pouvait être aussi rapide et satisfaisant. En 1 minute, tout est propre et sec. Je gagne un temps fou chaque semaine.",
+            "author": "Julie B."
+          }
+        },
+        "review_XYfdJx": {
+          "type": "review",
+          "settings": {
+            "review_text": "Avant, je repoussais toujours le nettoyage. C’était long, salissant, et je finissais par ne jamais le faire… Résultat : boutons et teint terne. Depuis que j’ai cette machine, c’est devenu un réflexe rapide et presque addictif !",
+            "author": "Camille L."
+          }
+        },
+        "review_nEwrdJ": {
+          "type": "review",
+          "settings": {
+            "review_text": "Compacte, jolie, et surtout : elle fait le job ! Mes pinceaux sont comme neufs après chaque nettoyage. Et elle ne fait presque aucun bruit.",
+            "author": "Maëva D"
+          }
+        },
+        "review_x4fFyc": {
+          "type": "review",
+          "settings": {
+            "review_text": "Moins de rougeurs, moins d’imperfections… et pourtant je n’ai changé que ça : mes pinceaux sont désormais nettoyés chaque semaine grâce à la machine.",
+            "author": "Sabrina R"
+          }
+        },
+        "review_3dfWRV": {
+          "type": "review",
+          "settings": {
+            "review_text": "Je n’aurais jamais cru que nettoyer mes pinceaux pouvait être aussi rapide et satisfaisant. En 1 minute, tout est propre et sec. Je gagne un temps fou chaque semaine.",
+            "author": "Nina C."
+          }
+        }
+      },
+      "block_order": [
+        "review_dtgUVP",
+        "review_XYfdJx",
+        "review_nEwrdJ",
+        "review_x4fFyc",
+        "review_3dfWRV"
+      ],
+      "settings": {}
     },
     "benefits": {
       "type": "homepage-benefits",
+      "settings": {
+        "eyebrow": "Les bénéfices",
+        "title": "Les bénéfices de nettoyer ses pinceaux",
+        "description": "<p>1. Élimination des bactéries et impuretés<br/>2. Atténuation des problèmes de peau<br/>3. Soutien à la prévention du vieillissement cutané<br/>4. Meilleure application du maquillage<br/>5. Préservation de la qualité des pinceaux<br/>6. Réduction des allergies et sensibilités<br/>7. Gain de temps et d’efficacité<br/>8. Conformité aux recommandations d’hygiène des dermatologues</p>",
+        "image": "shopify://shop_images/Purely_Image_de_Fond.jpg"
+      }
     },
     "socials": {
       "type": "homepage-socials",
+      "blocks": {
+        "social_image_wqbYib": {
+          "type": "social_image",
+          "settings": {
+            "image": "shopify://shop_images/Purely_Image_de_Fond.jpg",
+            "link": "https://instagram.com"
+          }
+        },
+        "social_image_6gBEAW": {
+          "type": "social_image",
+          "settings": {
+            "image": "shopify://shop_images/Purely_Image_de_Fond.jpg",
+            "link": "https://instagram.com"
+          }
+        },
+        "social_image_kqkYRh": {
+          "type": "social_image",
+          "settings": {
+            "image": "shopify://shop_images/Purely_Image_de_Fond.jpg",
+            "link": "https://instagram.com"
+          }
+        },
+        "social_image_bw3TVf": {
+          "type": "social_image",
+          "settings": {
+            "image": "shopify://shop_images/Purely_Image_de_Fond.jpg",
+            "link": "https://instagram.com"
+          }
+        }
+      },
+      "block_order": [
+        "social_image_wqbYib",
+        "social_image_6gBEAW",
+        "social_image_kqkYRh",
+        "social_image_bw3TVf"
+      ],
+      "settings": {
+        "heading": "#gopurely",
+        "instagram_link": ""
+      }
     },
+    "main_blog_imGJDw": {
+      "type": "main-blog",
+      "name": "Articles du blog",
+      "settings": {
+        "blog": "",
+        "section_title": "Nos derniers articles",
+        "articles_count": 3
+      }
+    }
   },
   "order": [
     "hero",
@@ -192,6 +292,7 @@
     "steps",
     "reviews",
     "benefits",
-    "socials"
+    "socials",
+    "main_blog_imGJDw"
   ]
 }

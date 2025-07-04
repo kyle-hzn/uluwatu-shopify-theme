@@ -20,9 +20,10 @@
     }
     &--outlined {
         border: 1px solid variables.$cta-primary-default;
-        color: variables.$text-primary-invert;
+        color: variables.$text-primary;
         &:hover {
             background-color: variables.$cta-primary-default;
+            color: variables.$text-primary-invert;
         }
     }
     &--link {
