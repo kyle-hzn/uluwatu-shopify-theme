@@ -31,6 +31,12 @@
             background-color: variables.$cta-primary-default;
         }
     }
+    &--link-invert {
+        color: variables.$text-primary-invert;
+        &:hover {
+            background-color: variables.$cta-primary-default;
+        }
+    }
 }
 
 .button-icon {

@@ -1,24 +1,134 @@
-<div class="container">
-  <div>
-    {% for link in linklists.footer.links %}
-      <a href="{{ link.url }}">
-        {{ link.title }}
-      </a>
+<div class="footer">
+  <div class="footer__cards flex w-full flex-col lg:flex-row">
+    {% for block in section.blocks %}
+      <div class="card w-full p-3 lg:p-6 h-auto flex items-center justify-center flex-col lg:gap-6 text-center">
+        <div class="card__icon">
+          {% if block.settings.icon != blank %}
+            <img
+              src="{{ block.settings.icon | image_url: width: 64 }}"
+              alt="{{ block.settings.title | escape }}"
+              class="w-6 h-6"
+              width="24"
+              height="24"
+            >
+          {% endif %}
+        </div>
+        <p class="heading-sm text-primary-invert">
+          {{ block.settings.text }}
+        </p>
+      </div>
     {% endfor %}
   </div>
+  <div class="footer__content px-3 lg:px-8 pt-10 pb-6 flex flex-col lg:flex-row gap-4 lg:gap-0 lg:flex-wrap">
+    <div class="footer__content__l flex flex-col gap-4 flex-1 items-baseline">
+      <h5 class="heading-lg text-primary-invert">
+        {{ section.settings.footer_title | escape | replace: '&lt;', '<' | replace: '&gt;', '>' }}
+      </h5>
+      {% if section.settings.payment_image %}
+        <img
+          src="{{ section.settings.payment_image | image_url: width: 300 }}"
+          alt="Méthodes de paiement"
+          class="w-auto h-6"
+          width="auto"
+          height="24px"
+        >
+      {% endif %}
+    </div>
+    <div class="footer__content__r flex-1">
+      <div class="grid grid-cols-2 gap-x-8 text-sm text-secondary">
+        {% assign links = linklists.footer.links %}
+        {% assign half = links.size | divided_by: 2 | ceil %}
 
-  <div>
-    &copy; Shopify Theme Lab
+        <!-- Column 1 -->
+        <div class="flex flex-col gap-2">
+          {% for link in links limit: half %}
+            <a href="{{ link.url }}" class="button button--link-invert w-fit">
+              {{ link.title }}
+              <img src="{{ 'arrow_outward-white.static.svg' | asset_url }}" alt="icone flèche" class="w-4 h-4" width="16" height="16">
+            </a>
+          {% endfor %}
+        </div>
+
+        <!-- Column 2 -->
+        <div class="flex flex-col gap-2">
+          {% for link in links offset: half %}
+            <a href="{{ link.url }}" class="button button--link-invert w-fit">
+              {{ link.title }}
+              <img src="{{ 'arrow_outward-white.static.svg' | asset_url }}" alt="icone flèche" class="w-4 h-4" width="16" height="16">
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "t:sections.footer.name",
+  "name": "Footer",
   "settings": [
     {
-      "type": "paragraph",
-      "content": "t:sections.footer.settings.paragraph"
+      "type": "richtext",
+      "id": "footer_title",
+      "label": "Titre du footer",
+      "default": "<p>Votre <strong>skincare</strong> commence par des pinceaux <strong>propres</strong></p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_image",
+      "label": "Image des méthodes de paiement"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Carte",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icône"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte de la carte",
+          "default": "Paiement sécurisé"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Footer personnalisé",
+      "category": "Footer",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "text": "Paiement sécurisé"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "text": "Retour sous 14 jours"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "text": "Livraison offerte"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "text": "Marque française"
+          }
+        }
+      ]
     }
   ]
 }

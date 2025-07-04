@@ -141,12 +141,24 @@
   @include heading-lg-strong;
 }
 
+.heading-lg {
+  strong {
+    @include heading-lg-strong;
+  }
+}
+
 .heading-md {
   @include heading-md;
 }
 
 .heading-md-strong {
   @include heading-md-strong;
+}
+
+.heading-md {
+  strong {
+    @include heading-md-strong;
+  }
 }
 
 .heading-sm {
