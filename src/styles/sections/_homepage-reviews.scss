@@ -1,0 +1,9 @@
+.swiper-button-prev, .swiper-button-next {
+    width: unset !important;
+    position: unset !important;
+    height: unset !important;
+    margin-top: unset !important;
+    &::after {
+        display: none;
+    }
+}

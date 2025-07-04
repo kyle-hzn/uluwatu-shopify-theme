@@ -1,0 +1,85 @@
+{% schema %}
+{
+  "name": "Réseaux sociaux",
+  "tag": "section",
+  "class": "homepage-socials-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "#gopurely"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Lien Instagram"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_image",
+      "name": "Image Instagram",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien (optionnel)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Réseaux sociaux (carousel)",
+      "category": "Homepage"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="homepage-socials p-3 lg:p-8 flex flex-col items-center gap-4">
+  <div class="homepage-socials__head flex flex-col lg:flex-row justify-between gap-2 w-full">
+    <h3 class="heading-lg text-primary">
+      {{ section.settings.heading }}
+    </h3>
+    {% if section.settings.instagram_link != blank %}
+      <a href="{{ section.settings.instagram_link }}" class="button button--primary w-full lg:w-fit">
+        Voir notre page Instagram
+        <img src="{{ 'asterisk.static.svg' | asset_url }}" alt="Icône" class="w-6 h-6" width="24" height="24">
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="overflow-x-auto lg:overflow-visible w-full">
+    <div class="homepage-socials__grid flex gap-4 snap-x scroll-smooth w-max lg:flex-wrap lg:w-full">
+      {% for block in section.blocks %}
+        {% assign image = block.settings.image %}
+        {% assign link = block.settings.link %}
+        {% if image != blank %}
+          <a href="{{ link | default: '#' }}" target="_blank"
+            class="homepage-socials__grid__item snap-start flex-shrink-0 w-[66.6666vw] aspect-square rounded-xl overflow-hidden relative lg:w-[calc(25%-0.75rem)]">
+            <img
+              src="{{ image | image_url: width: 500 }}"
+              alt="Image Instagram {{ forloop.index }}"
+              class="w-full h-full object-cover"
+              width="250"
+              height="312">
+            <img
+              src="{{ 'instagram.static.svg' | asset_url }}"
+              alt="Instagram icon"
+              class="homepage-socials__grid__item__icon"
+              width="32"
+              height="32">
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

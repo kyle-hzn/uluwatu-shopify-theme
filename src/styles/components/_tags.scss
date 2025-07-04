@@ -1,0 +1,16 @@
+@use '../base/variables';
+@use '../base/typography';
+
+.tag {
+    width: auto;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    @include typography.body-sm;
+    &--success {
+        background-color: variables.$bg-success;
+        color: variables.$text-success;
+    }
+}

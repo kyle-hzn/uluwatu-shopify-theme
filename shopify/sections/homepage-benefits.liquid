@@ -1,0 +1,68 @@
+{% schema %}
+{
+  "name": "Bénéfices",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sur-titre (petit)",
+      "default": "Les bénéfices"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre principal",
+      "default": "Les bénéfices de nettoyer ses pinceaux"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Texte explicatif (liste ou paragraphe)",
+      "default": "<p>1. Élimination des bactéries et impuretés<br>2. Atténuation des problèmes de peau<br>3. Soutien à la prévention du vieillissement cutané<br>4. Meilleure application du maquillage<br>5. Préservation de la qualité des pinceaux<br>6. Réduction des allergies et sensibilités<br>7. Gain de temps et d’efficacité<br>8. Conformité aux recommandations d’hygiène des dermatologues</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image illustrative"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section bénéfices"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="homepage-benefits p-3 lg:p-8 flex flex-col lg:flex-row items-center gap-8 mb-16">
+  <div class="homepage-benefits__l flex-1">
+    <div class="flex flex-wrap items-top gap-2">
+      <img src="{{ 'asterisk-black.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+      <p class="caption">
+        {{ section.settings.eyebrow }}
+      </p>
+    </div>
+    <h1 class="heading-xl text-primary mb-2">
+      {{ section.settings.title }}
+    </h1>
+    <div class="body-md text-secondary rte">
+      {{ section.settings.description }}
+    </div>
+  </div>
+
+  <div class="homepage-benefits__r flex-1">
+    <div class="h-screen w-full rounded-xl relative overflow-hidden">
+      {% if section.settings.image != blank %}
+        <img class="absolute top-0 left-0 w-full h-full object-cover"
+             src="{{ section.settings.image | image_url: width: 1200 }}"
+             alt="Image bénéfices"
+             width="1200"
+             height="auto">
+      {% else %}
+        <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-500 text-sm">
+          Aucune image sélectionnée
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

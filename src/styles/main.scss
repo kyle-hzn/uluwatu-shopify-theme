@@ -12,6 +12,7 @@
 @use 'components/cards';
 @use 'components/table';
 @use 'components/divider';
+@use 'components/tags';
 
 // Pages
 @use 'pages/homepage';
@@ -20,6 +21,8 @@
 @use 'sections/homepage-hero';
 @use 'sections/homepage-why';
 @use 'sections/homepage-steps';
+@use 'sections/homepage-reviews';
+@use 'sections/homepage-socials';
 
 // Tailwind layers
 @tailwind base;

@@ -1,26 +1,197 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
-      "type": "homepage-hero"
+      "type": "homepage-hero",
+      "settings": {
+        "title": "Votre <strong>skincare</strong> commence par des pinceaux <strong>propres</strong>",
+        "subtitle": "Nettoyez vos pinceaux de maquillages sans efforts",
+        "background_image": "shopify://shop_images/Purely_Image_de_Fond.jpg"
+      }
     },
     "intro": {
-      "type": "homepage-intro"
+      "type": "homepage-intro",
+      "settings": {
+        "intro_caption": "C'est quoi Purely ?",
+        "intro_title": "Un nettoyage <strong>rapide</strong> et <strong>hygiénique</strong> — pour les <strong>pinceaux</strong>, la <strong>peau</strong> et votre <strong>routine</strong> beauté."
+      }
     },
     "what": {
-      "type": "homepage-what"
+      "type": "homepage-what",
+      "blocks": {
+        "card_FD4VY7": {
+          "type": "card",
+          "settings": {
+            "text": "Préserve la santé de votre peau"
+          }
+        },
+        "card_rzMhip": {
+          "type": "card",
+          "settings": {
+            "text": "Élimine bactéries et impuretés"
+          }
+        },
+        "card_T9HNQj": {
+          "type": "card",
+          "settings": {
+            "text": "Prolonge la durée de vie de vos pinceaux"
+          }
+        }
+      },
+      "block_order": [
+        "card_FD4VY7",
+        "card_rzMhip",
+        "card_T9HNQj"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/Image_FX_2.png"
+      }
     },
     "why": {
       "type": "homepage-why",
+      "blocks": {
+        "row_3GMWmE": {
+          "type": "row",
+          "settings": {
+            "label": "Santé de la peau"
+          }
+        },
+        "row_nhXVMr": {
+          "type": "row",
+          "settings": {
+            "label": "Propreté des pinceaux"
+          }
+        },
+        "row_GEfMaf": {
+          "type": "row",
+          "settings": {
+            "label": "Gain de temps"
+          }
+        },
+        "row_qHCgCA": {
+          "type": "row",
+          "settings": {
+            "label": "Durée de vie des pinceaux"
+          }
+        },
+        "row_JdHUcK": {
+          "type": "row",
+          "settings": {
+            "label": "Rendu du maquillage"
+          }
+        },
+        "row_ejG43j": {
+          "type": "row",
+          "settings": {
+            "label": "Hygiène"
+          }
+        },
+        "row_YDMPaN": {
+          "type": "row",
+          "settings": {
+            "label": "Charge mentale"
+          }
+        }
+      },
+      "block_order": [
+        "row_3GMWmE",
+        "row_nhXVMr",
+        "row_GEfMaf",
+        "row_qHCgCA",
+        "row_JdHUcK",
+        "row_ejG43j",
+        "row_YDMPaN"
+      ],
+      "settings": {
+        "caption": "L’avantage Purely ?",
+        "heading": "Pourquoi utiliser notre nettoyeur automatique de pinceaux ?",
+        "stat_number": "100.000 bactéries",
+        "stat_description": "C’est le nombre que peut contenir un pinceau en seulement 3 semaines sans lavage, selon une étude sur 467 accessoires de maquillage.",
+        "column_1": "Critère",
+        "column_2": "Avec Purely",
+        "column_3": "Sans nettoyage"
+      }
     },
     "steps": {
-      "type": "homepage-steps"
-    }
+      "type": "homepage-steps",
+      "blocks": {
+        "step_yt6wTh": {
+          "type": "step",
+          "settings": {
+            "step_number": "01",
+            "step_text": "Versez & Immergez vos pinceaux"
+          }
+        },
+        "step_xLWM6h": {
+          "type": "step",
+          "settings": {
+            "step_number": "02",
+            "step_text": "Lancez & laissez la magie opérer"
+          }
+        },
+        "step_cmcHdW": {
+          "type": "step",
+          "settings": {
+            "step_number": "03",
+            "step_text": "Retournez & Séchez vos pinceaux"
+          }
+        },
+        "marquee_GNLzXK": {
+          "type": "marquee",
+          "settings": {
+            "marquee_title": "Convient à tous les pinceaux, toutes tailles et toutes formes",
+            "marquee_items": "Pinceau fond de teint plat, Pinceau poudre large, Pinceau blush biseauté, Pinceau blush biseauté, Pinceau estompeur yeux, Pinceau eyeliner fin, Pinceau lèvres plat",
+            "marquee_image": "shopify://shop_images/Image_FX_2.png"
+          }
+        },
+        "marquee_EWxtLP": {
+          "type": "marquee",
+          "settings": {
+            "marquee_title": "Désincruste toutes les impuretés, bactéries & résidus",
+            "marquee_items": "Fond de teint séché, Sébum accumulé, Bactéries, Poussière & pollution, Résidus de poudre ou pigments, Cellules mortes",
+            "marquee_image": "shopify://shop_images/Image_FX_2.png"
+          }
+        }
+      },
+      "block_order": [
+        "step_yt6wTh",
+        "step_xLWM6h",
+        "step_cmcHdW",
+        "marquee_GNLzXK",
+        "marquee_EWxtLP"
+      ],
+      "settings": {
+        "caption": "Insérez, Lavez & séchez",
+        "title": "Nettoyez vos pinceaux en 3 étapes",
+        "video_url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+      }
+    },
+    "reviews": {
+      "type": "homepage-reviews",
+    },
+    "benefits": {
+      "type": "homepage-benefits",
+    },
+    "socials": {
+      "type": "homepage-socials",
+    },
   },
   "order": [
     "hero",
     "intro",
     "what",
     "why",
-    "steps"
+    "steps",
+    "reviews",
+    "benefits",
+    "socials"
   ]
 }

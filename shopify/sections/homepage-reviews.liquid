@@ -1,0 +1,61 @@
+{% schema %}
+{
+  "name": "Témoignages clients",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Témoignage",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Texte du témoignage"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Nom de l’auteur"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Témoignages clients"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="cstmr-reviews mySwiper mb-96">
+  <div class="swiper-wrapper">
+    {% for block in section.blocks %}
+      <div class="swiper-slide flex flex-col h-auto justify-items-center px-4">
+        <p class="heading-md text-primary text-center mb-6">
+          “{{ block.settings.review_text }}”
+        </p>
+        <div class="cstmr-reviews__slide__author flex flex-row gap-1 items-center">
+          <p class="body-md text-secondary">
+            {{ block.settings.author }}
+          </p>
+          <div class="tag tag--success">
+            <img class="m-auto block w-6 h-6" src="{{ 'check-filled-green.static.svg' | asset_url }}" alt="Icône coche positive" width="24" height="24">
+            Acheteur vérifié
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Navigation -->
+  <div class="cstmr-reviews__controls flex gap-2 justify-center mt-4">
+    <button class="button-icon button-icon--default button-icon--filled swiper-button-prev">
+      <img src="{{ 'arrow-left.static.svg' | asset_url }}" alt="flèche gauche" class="w-6 h-6" width="24" height="24">
+    </button>
+    <button class="button-icon button-icon--default button-icon--filled swiper-button-next">
+      <img src="{{ 'arrow-right.static.svg' | asset_url }}" alt="flèche droite" class="w-6 h-6" width="24" height="24">
+    </button>
+  </div>
+</div>
