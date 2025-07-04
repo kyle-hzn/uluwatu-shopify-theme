@@ -1,0 +1,50 @@
+{% schema %}
+{
+  "name": "Blog en vedette",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Choisir un blog",
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Titre de la section",
+      "default": "Nos derniers articles"
+    },
+    {
+      "type": "number",
+      "id": "articles_count",
+      "label": "Nombre d’articles à afficher",
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Articles du blog",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="blog-featured-section">
+  <h2>{{ section.settings.section_title }}</h2>
+  {% assign articles = blogs[section.settings.blog].articles | slice: 0, section.settings.articles_count %}
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {% for article in articles %}
+      <div class="article-card">
+        <a href="{{ article.url }}">
+          {% if article.image %}
+            <img src="{{ article.image | img_url: '600x' }}" alt="{{ article.image.alt | escape }}" width="100%" height="auto">
+          {% endif %}
+          <h3>{{ article.title }}</h3>
+          <p>{{ article.excerpt | strip_html | truncate: 100 }}</p>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
