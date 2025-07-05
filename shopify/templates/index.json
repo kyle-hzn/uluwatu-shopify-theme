@@ -285,7 +285,52 @@
       }
     },
     "FAQ": {
-      "type": "faq"
+      "type": "faq",
+      "blocks": {
+        "question_yKUWzK": {
+          "type": "question",
+          "settings": {
+            "question": "Est-ce que la machine fonctionne avec tous les types de pinceaux ?",
+            "answer": "La machine est compatible avec la grande majorité des pinceaux de maquillage, qu’ils soient petits ou larges, plats ou arrondis, en poils naturels ou synthétiques. Plusieurs embouts adaptables assurent un maintien optimal, peu importe la forme ou la taille."
+          }
+        },
+        "question_X3hVAC": {
+          "type": "question",
+          "settings": {
+            "question": "Le nettoyage abîme-t-il les pinceaux ?",
+            "answer": "La machine est compatible avec la grande majorité des pinceaux de maquillage, qu’ils soient petits ou larges, plats ou arrondis, en poils naturels ou synthétiques. Plusieurs embouts adaptables assurent un maintien optimal, peu importe la forme ou la taille."
+          }
+        },
+        "question_in4tWy": {
+          "type": "question",
+          "settings": {
+            "question": "Peut-on utiliser n’importe quel produit nettoyant ?",
+            "answer": "La machine est compatible avec la grande majorité des pinceaux de maquillage, qu’ils soient petits ou larges, plats ou arrondis, en poils naturels ou synthétiques. Plusieurs embouts adaptables assurent un maintien optimal, peu importe la forme ou la taille."
+          }
+        },
+        "question_ELQhxK": {
+          "type": "question",
+          "settings": {
+            "question": "En combien de temps les pinceaux sont-ils propres et secs ?",
+            "answer": "La machine est compatible avec la grande majorité des pinceaux de maquillage, qu’ils soient petits ou larges, plats ou arrondis, en poils naturels ou synthétiques. Plusieurs embouts adaptables assurent un maintien optimal, peu importe la forme ou la taille."
+          }
+        },
+        "question_aWnb99": {
+          "type": "question",
+          "settings": {
+            "question": "Est-ce bruyant ?",
+            "answer": "La machine est compatible avec la grande majorité des pinceaux de maquillage, qu’ils soient petits ou larges, plats ou arrondis, en poils naturels ou synthétiques. Plusieurs embouts adaptables assurent un maintien optimal, peu importe la forme ou la taille."
+          }
+        }
+      },
+      "block_order": [
+        "question_yKUWzK",
+        "question_X3hVAC",
+        "question_in4tWy",
+        "question_ELQhxK",
+        "question_aWnb99"
+      ],
+      "settings": {}
     }
   },
   "order": [

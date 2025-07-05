@@ -58,10 +58,10 @@
 
 // Heading LG Strong (Desktop: 40px, Mobile: 32px)
 @mixin heading-lg-strong {
-  @include text-base('Playfair Display', italic, 32, 38, -1.6);
+  @include text-base('Playfair Display', 500, 32, 38, -1.6);
   
   @media (min-width: 768px) {
-    @include text-base('Playfair Display', italic, 40, 48, -2);
+    @include text-base('Playfair Display', 500, 40, 48, -2);
   }
 }
 
@@ -76,10 +76,10 @@
 
 // Heading MD Strong (Desktop: 32px, Mobile: 24px)
 @mixin heading-md-strong {
-  @include text-base('Playfair Display', italic, 24, 28, -1.2);
+  @include text-base('Playfair Display', 500, 24, 28, -1.2);
   
   @media (min-width: 768px) {
-    @include text-base('Playfair Display', italic, 32, 38, -1.6);
+    @include text-base('Playfair Display', 500, 32, 38, -1.6);
   }
 }
 
@@ -126,6 +126,7 @@
 .heading-xl {
   strong {
     @include heading-xl-strong;
+    font-style: italic;
   }
 }
 
@@ -144,6 +145,7 @@
 .heading-lg {
   strong {
     @include heading-lg-strong;
+    font-style: italic;
   }
 }
 
@@ -158,6 +160,7 @@
 .heading-md {
   strong {
     @include heading-md-strong;
+    font-style: italic;
   }
 }
 

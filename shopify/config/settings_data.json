@@ -8,5 +8,56 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "card_3b7wLe": {
+            "type": "card",
+            "settings": {
+              "icon": "shopify://shop_images/asterisk.static.svg",
+              "text": "Paiement sécurisé"
+            }
+          },
+          "card_rC3weT": {
+            "type": "card",
+            "settings": {
+              "icon": "shopify://shop_images/asterisk.static.svg",
+              "text": "Retour sous 14 jours"
+            }
+          },
+          "card_b6AWKN": {
+            "type": "card",
+            "settings": {
+              "icon": "shopify://shop_images/asterisk.static.svg",
+              "text": "Livraison offerte"
+            }
+          },
+          "card_ReyGyH": {
+            "type": "card",
+            "settings": {
+              "icon": "shopify://shop_images/asterisk.static.svg",
+              "text": "Marque française"
+            }
+          }
+        },
+        "block_order": [
+          "card_3b7wLe",
+          "card_rC3weT",
+          "card_b6AWKN",
+          "card_ReyGyH"
+        ],
+        "settings": {
+          "footer_title": "<p>Votre <strong>skincare</strong> commence par des pinceaux <strong>propres</strong></p>",
+          "payment_image": "shopify://shop_images/payment-methods.static.svg"
+        }
+      }
+    },
+    "content_for_index": []
+  }
 }
