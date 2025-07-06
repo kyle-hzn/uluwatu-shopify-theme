@@ -1,3 +1,118 @@
-<h1 class="heading-xxl">
-    Helloooooooooo
-</h1>
+<div class="product-page">
+  <div class="product-page__wrap flex flex-wrap">
+    <!-- Galerie -->
+    <div class="product-page__wrap__l w-full lg:w-[60%]">
+      <div class="product-page__gallery relative">
+        <!-- Swiper principal -->
+        <div class="swiper main-swiper w-full aspect-square overflow-hidden h-screen z-10">
+          <div class="swiper-wrapper">
+            {% for image in product.images %}
+              <div class="swiper-slide">
+                <img
+                  src="{{ image | image_url: width: 1080 }}"
+                  alt="{{ image.alt | escape }}"
+                  class="w-full h-full object-cover"
+                  width="1080"
+                  height="1080"
+                >
+              </div>
+            {% endfor %}
+          </div>
+          <!-- Navigation -->
+          <div class="absolute bottom-8 right-8 flex gap-2 justify-center mt-4 z-30">
+            <button class="button-icon button-icon--default button-icon--filled swiper-button-prev">
+              <img src="{{ 'arrow-left.static.svg' | asset_url }}" alt="flèche gauche" class="w-6 h-6" width="24" height="24">
+            </button>
+            <button class="button-icon button-icon--default button-icon--filled swiper-button-next">
+              <img src="{{ 'arrow-right.static.svg' | asset_url }}" alt="flèche droite" class="w-6 h-6" width="24" height="24">
+            </button>
+          </div>
+        </div>
+
+        <!-- Swiper miniatures -->
+        <div class="absolute top-1/2 -translate-y-1/2 left-8 z-20">
+          <div class="swiper thumb-swiper">
+            <div class="swiper-wrapper">
+              {% for image in product.images %}
+                <div class="swiper-slide !w-[64px] !h-[80px] cursor-pointer rounded-xl overflow-hidden border-2 border-transparent">
+                  <img
+                    src="{{ image | image_url: width: 200 }}"
+                    alt="Miniature {{ forloop.index }}"
+                    class="w-full h-full object-cover"
+                    width="200"
+                    height="200"
+                  >
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Infos produit -->
+    <div class="product-page__wrap__r w-full lg:w-[40%] p-16">
+      <div class="product-page__infos flex flex-col justify-end h-full gap-6">
+        <!-- Top -->
+        <div class="product-page__infos__top flex flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <div class="product-page__infos__top__reviews flex flex-row gap-2">
+              <img src="{{ '5-stars.static.svg' | asset_url }}" alt="Icônes 5 étoiles" class="w-auto h-4" width="auto" height="16">
+              <p class="caption text-secondary">4.8/5 120 avis</p>
+            </div>
+            <h1 class="product-page__infos__top__title heading-lg text-primary">
+              {{ product.title }}
+            </h1>
+          </div>
+          <p class="product-page__infos__top__description body-sm text-secondary">
+            {{ product.description | strip_html | default: 'Aucune description disponible pour ce produit.' }}
+          </p>
+          <div class="product-page__infos__top__stock flex flex-row justify-between items-center">
+            <p class="body-sm text-secondary">Disponibilité</p>
+            {% if product.available %}
+              {% if product.variants.first.inventory_quantity <= 5 %}
+                <div class="tag tag--warning">Bientôt en rupture</div>
+              {% else %}
+                <div class="tag tag--success">En stock</div>
+              {% endif %}
+            {% else %}
+              <div class="tag tag--error">Indisponible</div>
+            {% endif %}
+          </div>
+          <div class="divider"></div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="product-page__infos__btm flex flex-col gap-2">
+          <!-- Bouton ajouter au panier -->
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <button type="submit" class="button button--primary w-full">
+              Ajouter au panier
+              <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Icone ajouter au panier" class="w-6 h-6" width="24" height="24">
+            </button>
+          </form>
+
+          <!-- Moyens de paiement -->
+          <img src="{{ 'payment-methods.static.svg' | asset_url }}" alt="Méthodes de paiement" class="w-auto h-6" width="auto" height="24px">
+
+          <!-- Carrousel texte -->
+          {% if section.blocks.size > 0 %}
+            <div class="text-carousel swiper my-text-swiper w-full text-center !flex flex-col !gap-2">
+              <div class="swiper-wrapper">
+                {% if product.metafields.custom.carousel_texts.size > 0 %}
+                <div class="swiper-wrapper">
+                  {% for text in product.metafields.custom.carousel_texts %}
+                    <div class="swiper-slide text-secondary body-md">{{ text }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              </div>
+              <div class="swiper-pagination !relative flex justify-center"></div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

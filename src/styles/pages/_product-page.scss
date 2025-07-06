@@ -1,0 +1,21 @@
+@use '../base/variables';
+
+.thumb-swiper .swiper-slide-thumb-active {
+    border: 2px solid variables.$border-active;
+}
+
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    opacity: 0.5;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    background-color: variables.$bg-tertiary;
+}
+.swiper-pagination-bullet-active {
+    background: variables.$bg-secondary !important;
+    opacity: 1;
+    transform: scale(1.1);
+}

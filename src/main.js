@@ -65,3 +65,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// === Galerie produit Swiper ===
+const mainGallery = document.querySelector('.main-swiper');
+const thumbGallery = document.querySelector('.thumb-swiper');
+
+if (mainGallery && thumbGallery) {
+  const thumbSwiper = new Swiper(thumbGallery, {
+    spaceBetween: 10,
+    slidesPerView: 4,
+    freeMode: true,
+    watchSlidesProgress: true,
+    breakpoints: {
+      768: {
+        direction: 'vertical',
+        slidesPerView: 5,
+        spaceBetween: 12,
+      },
+    },
+  });
+
+  new Swiper(mainGallery, {
+    spaceBetween: 10,
+    loop: true,
+    autoplay: {
+      delay: 5000, // 3 secondes
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true, // pause au hover
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    thumbs: {
+      swiper: thumbSwiper,
+    },
+  });
+}
+
+// Carousel texte auto
+new Swiper('.text-carousel', {
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true
+  },
+  loop: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false
+  }
+});
