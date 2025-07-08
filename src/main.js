@@ -4,7 +4,25 @@ import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 
 window.Alpine = Alpine;
-Alpine.start();
+
+// Définir les stores ici AVANT de démarrer Alpine
+Alpine.store('cart', {
+  cart: null,
+  drawerOpen: false,
+  loading: false,
+});
+
+Alpine.store('toast', {
+  message: '',
+  show: false,
+  showToast(msg) {
+    this.message = msg;
+    this.show = true;
+    setTimeout(() => this.show = false, 3000);
+  },
+});
+
+Alpine.start(); // ✅ maintenant que les stores sont prêts
 
 document.addEventListener('DOMContentLoaded', () => {
   // Marquee autoplay
@@ -104,26 +122,40 @@ if (mainGallery && thumbGallery) {
 }
 
 // Carousel texte auto
-function initTextSwiper() {
-  const textCarousel = document.querySelector('.text-carousel');
+document.addEventListener('alpine:init', () => {
+  Alpine.store('cart', {
+    cart: null,
+    drawerOpen: false,
+    loading: false,
+  });
 
-  if (!textCarousel) {
-    console.warn('🟠 Carrousel non trouvé dans le DOM, on retente dans 100ms...');
-    return;
-  }
-
-  const slideCount = textCarousel.querySelectorAll('.swiper-slide').length;
-
-  new Swiper(textCarousel, {
-    loop: slideCount > 1,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
+  Alpine.effect(() => {
+    if (Alpine.store('cart').drawerOpen) {
+      // Laisse le temps au DOM de se rendre
+      setTimeout(() => {
+        initTextSwiper();
+      }, 100);
     }
+  });
+});
+
+function initTextSwiper() {
+  const carousels = document.querySelectorAll('.text-carousel:not(.swiper-initialized)');
+
+  carousels.forEach((carousel) => {
+    const slideCount = carousel.querySelectorAll('.swiper-slide').length;
+
+    new Swiper(carousel, {
+      loop: slideCount > 1,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      }
+    });
   });
 }
 

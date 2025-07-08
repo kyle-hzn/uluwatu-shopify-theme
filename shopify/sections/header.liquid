@@ -40,7 +40,7 @@
       <img src="{{ 'menu-white.static.svg' | asset_url }}" alt="Icone menu" class="w-6 h-6" width="24" height="24">
     </button>
 
-    <a href="{{ routes.cart_url }}" class="button-icon button-icon--large button-icon--filled relative transition-colors">
+    <a href="{{ routes.cart_url }}" class="cart-button button-icon button-icon--large button-icon--filled relative transition-colors">
       <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Cart" class="w-6 h-6" width="24" height="24">
       <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
         {{ cart.item_count }}
@@ -50,7 +50,7 @@
 
   <!-- 🟢 DESKTOP HEADER ONLY -->
   <div class="hidden lg:flex px-8 py-3 justify-between items-center relative">
-    <!-- Left: Logo -->
+  <!-- Left: Logo -->
     <a href="{{ routes.root_url }}" class="text-xl font-bold">Purely</a>
 
     <!-- Center: Navigation -->
@@ -59,15 +59,23 @@
     <!-- Right: CTA and cart -->
     <div class="flex items-center gap-4">
       <a href="#" class="button button--primary">
-        Décourir le produit
+        Découvrir le produit
         <img src="{{ 'asterisk.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
       </a>
-      <a href="{{ routes.cart_url }}" class="button-icon button-icon--large button-icon--filled relative transition-colors">
+      
+      <button
+        class="cart-button button-icon button-icon--large button-icon--filled relative transition-colors"
+        @click="$store.cart.drawerOpen = true"
+        type="button"
+      >
         <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Cart" class="w-6 h-6" width="24" height="24">
-        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-          {{ cart.item_count }}
+        <span 
+          class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+          x-text="$store.cart.cart?.item_count || 0"
+        >
+          0
         </span>
-      </a>
+      </button>
     </div>
   </div>
 
@@ -92,7 +100,7 @@
           <button @click="toggleMobileMenu(false)" class="button-icon button-icon--large button-icon--filled">
             <img src="{{ 'close-white.static.svg' | asset_url }}" alt="icone fermer" class="w-6 h-6" width="24" height="24">
           </button>
-          <a href="{{ routes.cart_url }}" class="button-icon button-icon--large button-icon--filled relative transition-colors">
+          <a href="{{ routes.cart_url }}" class="cart-button button-icon button-icon--large button-icon--filled relative transition-colors">
             <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Cart" class="w-6 h-6" width="24" height="24">
             <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
               {{ cart.item_count }}

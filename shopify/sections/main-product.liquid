@@ -1,4 +1,4 @@
-<div class="product-page pt-[116px]">
+<div class="product-page pt-[116px]" x-data="{ loading: false, drawerOpen: false, cart: null }">
   <div class="product-page__wrap grid grid-cols-1 lg:grid-cols-5 gap-6 mb-[96px]">
 
     {%- comment -%} ---------------- Galerie Produit ---------------- {%- endcomment -%}
@@ -85,12 +85,40 @@
         </div>
 
         {%- comment -%} ---- Bottom Infos ---- {%- endcomment -%}
-        <div class="product-page__infos__btm flex flex-col gap-2">
+        <div class="product-page__infos__btm flex flex-col gap-2" >
+
           <!-- Bouton ajouter au panier -->
-          <form method="post" action="/cart/add">
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-            <button type="submit" class="button button--primary w-full">
-              Ajouter au panier
+          <form 
+            @submit.prevent="
+              $store.cart.loading = true;
+              fetch('/cart/add.js', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: {{ product.variants.first.id }}, quantity: 1 })
+              })
+              .then(() => fetch('/cart.js'))
+              .then(res => res.json())
+              .then(data => {
+                $store.cart.cart = data;
+                $store.cart.drawerOpen = true;
+                $store.cart.loading = false;
+              })
+              .catch(error => {
+                console.error('Erreur:', error);
+                $store.cart.loading = false;
+              });
+            "
+          >
+            <button type="submit" class="button button--primary w-full flex justify-center items-center gap-2">
+              <template x-if="!$store.cart.loading">
+                <span>Ajouter au panier</span>
+              </template>
+              <template x-if="$store.cart.loading">
+                <svg class="animate-spin w-5 h-5 text-white" viewBox="0 0 24 24" fill="none">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                </svg>
+              </template>
               <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Icone ajouter au panier" class="w-6 h-6" width="24" height="24">
             </button>
           </form>
@@ -310,8 +338,5 @@
       </div>
     </div>
   </div>
-
-  {% render 'faq-snippet' %}
-
-
 </div> <!-- ✅ Fermeture de .product-page -->
+

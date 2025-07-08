@@ -1,0 +1,5 @@
+@use '../base/variables';
+
+.drawer {
+    background-color: variables.$bg-primary;
+}
