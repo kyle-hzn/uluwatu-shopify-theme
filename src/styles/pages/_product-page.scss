@@ -1,5 +1,15 @@
 @use '../base/variables';
 
+.product-page {
+    &__reviews {
+        background-color: variables.$bg-tertiary;
+    }
+}
+
+.product-review {
+    border-bottom: 1px solid variables.$border-default;
+}
+
 .thumb-swiper .swiper-slide-thumb-active {
     border: 2px solid variables.$border-active;
 }

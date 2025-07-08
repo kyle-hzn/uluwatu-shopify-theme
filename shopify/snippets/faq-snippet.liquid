@@ -1,0 +1,28 @@
+{% assign faq_list = shop.metafields.custom.faq.value %}
+
+{% assign faq_list = shop.metafields.custom.faq.value %}
+{{ faq_list | json }}
+
+{% if faq_list != blank %}
+  <div class="faq-section flex flex-col gap-6">
+    <div class="faq-section__title heading-xl text-primary">Foire aux questions</div>
+    <div class="faq-section__items flex flex-col gap-4" x-data="{ openIndex: null }">
+      {% for item in faq_list %}
+        <div class="faq-item border-b pb-4 cursor-pointer">
+          <div
+            class="faq-question heading-sm flex justify-between items-center text-primary"
+            @click="openIndex === {{ forloop.index0 }} ? openIndex = null : openIndex = {{ forloop.index0 }}"
+          >
+            {{ item.question }}
+            <svg class="w-5 h-5 transition-transform duration-300" :class="{ 'rotate-45': openIndex === {{ forloop.index0 }} }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </div>
+          <div x-show="openIndex === {{ forloop.index0 }}" x-transition class="faq-answer mt-2 body-md text-secondary">
+            {{ item.answer | metafield_tag }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

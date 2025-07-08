@@ -1,0 +1,13 @@
+@use '../base/variables';
+
+.list {
+    &__items {
+        position: relative;
+        &:before {
+            top: 50%;
+            transform: translateY(-50%);
+            content: '\273A';
+            margin-right: 1em;
+        }
+    }
+}

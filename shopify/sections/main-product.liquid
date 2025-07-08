@@ -1,10 +1,11 @@
-<div class="product-page">
-  <div class="product-page__wrap flex flex-wrap">
-    <!-- Galerie -->
-    <div class="product-page__wrap__l w-full lg:w-[60%]">
+<div class="product-page pt-[116px]">
+  <div class="product-page__wrap grid grid-cols-1 lg:grid-cols-5 gap-6 mb-[96px]">
+
+    {%- comment -%} ---------------- Galerie Produit ---------------- {%- endcomment -%}
+    <div class="product-page__wrap__l lg:col-span-3 order-1 lg:order-none m">
       <div class="product-page__gallery relative">
         <!-- Swiper principal -->
-        <div class="swiper main-swiper w-full aspect-square overflow-hidden h-screen z-10">
+        <div class="swiper main-swiper w-full aspect-square overflow-hidden h-[40vh] lg:h-[calc(100vh-116px)] z-10">
           <div class="swiper-wrapper">
             {% for image in product.images %}
               <div class="swiper-slide">
@@ -19,7 +20,7 @@
             {% endfor %}
           </div>
           <!-- Navigation -->
-          <div class="absolute bottom-8 right-8 flex gap-2 justify-center mt-4 z-30">
+          <div class="absolute bottom-3 lg:bottom-8 right-3 lg:right-8 flex gap-2 justify-center mt-4 z-30">
             <button class="button-icon button-icon--default button-icon--filled swiper-button-prev">
               <img src="{{ 'arrow-left.static.svg' | asset_url }}" alt="flèche gauche" class="w-6 h-6" width="24" height="24">
             </button>
@@ -30,7 +31,7 @@
         </div>
 
         <!-- Swiper miniatures -->
-        <div class="absolute top-1/2 -translate-y-1/2 left-8 z-20">
+        <div class="absolute top-1/2 -translate-y-1/2 left-8 z-20 hidden lg:flex">
           <div class="swiper thumb-swiper">
             <div class="swiper-wrapper">
               {% for image in product.images %}
@@ -50,11 +51,12 @@
       </div>
     </div>
 
-    <!-- Infos produit -->
-    <div class="product-page__wrap__r w-full lg:w-[40%] p-16">
-      <div class="product-page__infos flex flex-col justify-end h-full gap-6">
-        <!-- Top -->
-        <div class="product-page__infos__top flex flex-col gap-6">
+    {%- comment -%} ---------------- Infos Produit ---------------- {%- endcomment -%}
+    <div class="product-page__wrap__r w-full p-3 lg:px-16 lg:sticky h-fit top-8 lg:col-span-2 order-2 lg:order-none">
+      <div class="product-page__infos flex flex-col gap-6">
+
+        {%- comment -%} ---- Top Infos ---- {%- endcomment -%}
+        <div class="product-page__infos__top flex flex-col gap-4 lg:gap-6">
           <div class="flex flex-col gap-2">
             <div class="product-page__infos__top__reviews flex flex-row gap-2">
               <img src="{{ '5-stars.static.svg' | asset_url }}" alt="Icônes 5 étoiles" class="w-auto h-4" width="auto" height="16">
@@ -82,7 +84,7 @@
           <div class="divider"></div>
         </div>
 
-        <!-- Bottom -->
+        {%- comment -%} ---- Bottom Infos ---- {%- endcomment -%}
         <div class="product-page__infos__btm flex flex-col gap-2">
           <!-- Bouton ajouter au panier -->
           <form method="post" action="/cart/add">
@@ -97,22 +99,219 @@
           <img src="{{ 'payment-methods.static.svg' | asset_url }}" alt="Méthodes de paiement" class="w-auto h-6" width="auto" height="24px">
 
           <!-- Carrousel texte -->
-          {% if section.blocks.size > 0 %}
+          {% assign carousel_texts = product.metafields.custom.carousel_texts.value %}
+          {% if carousel_texts != blank and carousel_texts.size > 0 %}
             <div class="text-carousel swiper my-text-swiper w-full text-center !flex flex-col !gap-2">
               <div class="swiper-wrapper">
-                {% if product.metafields.custom.carousel_texts.size > 0 %}
-                <div class="swiper-wrapper">
-                  {% for text in product.metafields.custom.carousel_texts %}
-                    <div class="swiper-slide text-secondary body-md">{{ text }}</div>
-                  {% endfor %}
-                </div>
-              {% endif %}
+                {% for text in carousel_texts %}
+                  <div class="swiper-slide text-secondary body-md">
+                    {{ text }}
+                  </div>
+                {% endfor %}
               </div>
-              <div class="swiper-pagination !relative flex justify-center"></div>
+              {% if carousel_texts.size > 1 %}
+                <div class="swiper-pagination !relative flex justify-center"></div>
+              {% endif %}
             </div>
           {% endif %}
         </div>
       </div>
     </div>
+
+    {% comment %} BLOC 1 {% endcomment %}
+    {% assign bloc_1 = product.metafields.custom.bloc_1.value %}
+    {% if bloc_1 %}
+      <div class="lg:col-span-3 order-3 lg:order-none pl-3 lg:pl-8 pr-3 lg:pr-0 pt-6 lg:pt-20">
+        <div class="product-page__bloc flex flex-col gap-6">
+          
+          <!-- Titre + sous-titre -->
+          <div class="product-page__bloc__head flex flex-col gap-2">
+            {% if bloc_1.subtitle != blank %}
+              <div class="flex flex-wrap items-center gap-2">
+                <img src="{{ 'asterisk-black.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+                <p class="caption">{{ bloc_1.subtitle }}</p>
+              </div>
+            {% endif %}
+            <h2 class="heading-xxl text-primary">
+              {{ bloc_1.title | default: 'Utilisation' }}
+            </h2>
+          </div>
+
+          <!-- Contenu -->
+          <div class="product-page__bloc__content flex flex-col gap-4">
+            {% if bloc_1.list_title != blank %}
+              <h3 class="heading-sm text-primary">{{ bloc_1.list_title }}</h3>
+            {% endif %}
+
+            {% assign bullet_list = bloc_1.list_items.value %}
+            {% if bullet_list.size > 0 %}
+              <ul class="product-page__list body-md text-secondary list">
+                {% for item in bullet_list %}
+                  <li class="list list__items">{{ item }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            <!-- Accordéons -->
+            {% if bloc_1.accordeons != blank %}
+            <div x-data="{ openIndex: null, hoveredIndex: null }" class="product-page__accordeons flex flex-col gap-4">
+              {% for accordeon in bloc_1.accordeons.value %}
+                <div 
+                  class="accordeon accordeon--default transition-all duration-300 cursor-pointer"
+                  :class="{
+                    'accordeon--active': openIndex === {{ forloop.index0 }},
+                    'opacity-50': hoveredIndex !== null && hoveredIndex !== {{ forloop.index0 }}
+                  }"
+                  @mouseenter="hoveredIndex = {{ forloop.index0 }}"
+                  @mouseleave="hoveredIndex = null"
+                >
+                  <div 
+                    class="accordeon__head flex justify-between items-center"
+                    @click="openIndex === {{ forloop.index0 }} ? openIndex = null : openIndex = {{ forloop.index0 }}"
+                  >
+                    <p class="heading-sm text-primary">{{ accordeon.title }}</p>
+                    <div class="button-icon button-icon--default button-icon--filled transition-all">
+                      <svg x-show="openIndex !== {{ forloop.index0 }}" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" style="stroke: var(--icon-invert);">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                      </svg>
+                      <svg x-show="openIndex === {{ forloop.index0 }}" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" style="stroke: var(--icon-invert);">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div x-show="openIndex === {{ forloop.index0 }}" x-transition class="mt-4 body-md text-secondary">
+                    {{ accordeon.text }}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% comment %} BLOC 2 {% endcomment %}
+    {% assign bloc_2 = product.metafields.custom.bloc_2.value %}
+    {% if bloc_2 %}
+    <div class="product-page__bloc flex flex-col gap-6 pl-3 lg:pl-8 pr-3 lg:pr-0 lg:pt-20 lg:col-span-3 order-3 lg:order-none">
+      <div class="product-page__bloc__head flex flex-col gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <img src="{{ 'asterisk-black.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+          <p class="caption">
+            {{ bloc_2.subtitle }}
+          </p>
+        </div>
+        <h2 class="heading-xxl text-primary">
+          {{ bloc_2.title }}
+        </h2>
+      </div>
+      {% if bloc_2.keystats != blank %}
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for keystat in bloc_2.keystats.value %}
+        <div class="product-page__bloc__keystat flex flex-col gap-2">
+          <p class="heading-xl text-primary">
+            {{ keystat.title }}
+          </p>
+          <div class="body-sm text-secondary">
+            {{ keystat.text | metafield_tag }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+    
+
+    {% comment %} BLOC 3 {% endcomment %}
+    {% assign bloc_3 = product.metafields.custom.bloc_3.value %}
+
+    {% if bloc_3 %}
+      <div class="product-page__bloc flex flex-col gap-6 pl-3 lg:pl-8 pr-3 lg:pr-0 lg:pt-20 lg:col-span-3 order-3 lg:order-none">
+        <div class="product-page__bloc__head flex flex-col gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <img src="{{ 'asterisk-black.static.svg' | asset_url }}" alt="icone asterisk" class="w-6 h-6" width="24" height="24">
+            <p class="caption">{{ bloc_3.subtitle }}</p>
+          </div>
+          <h2 class="heading-xxl text-primary">{{ bloc_3.title }}</h2>
+        </div>
+
+        {% if bloc_3.socials.value != blank %}
+          <div class="flex gap-4 flex-wrap">
+            {% for social in bloc_3.socials.value %}
+              {% assign image = social.img %}
+              {% assign link = social.link %}
+
+              {% if image != blank %}
+                <a href="{{ link | default: '#' }}" target="_blank"
+                  class="homepage-socials__grid__item snap-start flex-shrink-0 flex-1 aspect-square rounded-xl overflow-hidden relative">
+
+                  <img
+                    src="{{ image | image_url: width: 500 }}"
+                    alt="Image Instagram {{ forloop.index }}"
+                    class="w-full h-full object-cover"
+                    width="250"
+                    height="250">
+
+                  <img
+                    src="{{ 'instagram.static.svg' | asset_url }}"
+                    alt="Instagram icon"
+                    class="homepage-socials__grid__item__icon absolute bottom-2 right-2 w-8 h-8"
+                    width="32"
+                    height="32">
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  </div> <!-- ✅ Fermeture de .product-page__wrap -->
+
+  <div class="product-page__reviews px-8 py-16 rounded-3xl flex flex-col lg:flex-row gap-6">
+    <div class="product-page__reviews__l flex flex-col flex-1 sticky top-0 h-fit">
+      <div class="flex flex-col lg:w-1/2">
+        <h4 class="heading-xxl text-primary">
+          Avis
+        </h4>
+        <div class="flex flex-row gap-2">
+          <h5 class="heading-xl text-primary">
+            4.8
+          </h5>
+          <img src="{{ '5-stars.static.svg' | asset_url }}" alt="Icônes 5 étoiles" class="w-auto h-4" width="auto" height="16">
+        </div>
+        <p class="body-sm text-secondary">
+          La note de ce produit est de 4.8 sur 5 étoiles. Nous avons récolté plus de 120 avis.
+        </p>
+      </div>
+    </div>
+    <div class="product-page__reviews__r flex-1 flex flex-col gap-6">
+      <div class="product-review flex flex-col gap-4 pb-6">
+        <div class="product-review__head flex flex-row justify-between">
+          <img src="{{ '5-stars.static.svg' | asset_url }}" alt="Icônes 5 étoiles" class="w-auto h-4" width="auto" height="16">
+          <p class="body-sm text-secondary">
+            13/04/2025
+          </p>
+        </div>
+        <p class="product-review__content body-sm text-primary">
+          Je n’aurais jamais cru que nettoyer mes pinceaux pouvait être aussi rapide et satisfaisant. En 1 minute, tout est propre et sec. Je gagne un temps fou chaque semaine.
+        </p>
+        <div class="product-review__btm flex flex-row justify-between">
+          <p class="body-sm text-secondary">
+            Julie B.
+          </p>
+          <div class="tag tag--success">
+            <img class="m-auto block w-6 h-6" src="{{ 'check-filled-green.static.svg' | asset_url }}" alt="Icône coche positive" width="24" height="24">
+            Acheteur vérifié
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+  {% render 'faq-snippet' %}
+
+
+</div> <!-- ✅ Fermeture de .product-page -->

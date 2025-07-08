@@ -104,14 +104,27 @@ if (mainGallery && thumbGallery) {
 }
 
 // Carousel texte auto
-new Swiper('.text-carousel', {
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true
-  },
-  loop: true,
-  autoplay: {
-    delay: 5000,
-    disableOnInteraction: false
+function initTextSwiper() {
+  const textCarousel = document.querySelector('.text-carousel');
+
+  if (!textCarousel) {
+    console.warn('🟠 Carrousel non trouvé dans le DOM, on retente dans 100ms...');
+    return;
   }
-});
+
+  const slideCount = textCarousel.querySelectorAll('.swiper-slide').length;
+
+  new Swiper(textCarousel, {
+    loop: slideCount > 1,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initTextSwiper);
