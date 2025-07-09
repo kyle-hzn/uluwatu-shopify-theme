@@ -1,0 +1,15 @@
+@use '../base/variables';
+@use '../base/typography';
+
+.toast {
+    padding: 16px;
+    @include typography.body-md;
+    border-radius: 12px;
+    white-space: nowrap;
+
+    &--info {
+        color: variables.$text-info;
+        background-color: variables.$bg-info;
+        border: 1px solid variables.$text-info;
+    }
+}

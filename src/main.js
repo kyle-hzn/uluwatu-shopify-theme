@@ -6,32 +6,33 @@ import 'swiper/css/bundle';
 window.Alpine = Alpine;
 
 document.addEventListener('alpine:init', () => {
-  // === 🛒 STORE PANIER ===
+  // === 🛒 STORE PANIER MODIFIÉ ===
   Alpine.store('cart', {
     cart: null,
     drawerOpen: false,
     loading: false,
-
-    openDrawer() {
+    
+    async openDrawer() {
+      // Toujours recharger le panier à l'ouverture
+      await this.reload();
       this.drawerOpen = true;
-
-      // ✅ Fermer le menu mobile s’il est ouvert
+      // ✅ Fermer le menu mobile s'il est ouvert
       if (Alpine.store('mobileMenu')?.open) {
         Alpine.store('mobileMenu').close();
       }
     },
-
+    
     closeDrawer() {
       this.drawerOpen = false;
     },
-
+    
     async reload() {
       const res = await fetch('/cart.js');
       const data = await res.json();
       data.items.forEach(item => item.quantity = Number(item.quantity));
       this.cart = data;
     },
-
+    
     async updateQuantity(id, quantity) {
       this.loading = true;
       await fetch('/cart/change.js', {
@@ -41,10 +42,9 @@ document.addEventListener('alpine:init', () => {
       });
       await this.reload();
       this.loading = false;
-
       Alpine.store('toast')?.showToast("Quantité mise à jour.");
     },
-
+    
     async removeItem(id) {
       this.loading = true;
       await fetch('/cart/change.js', {
@@ -54,7 +54,6 @@ document.addEventListener('alpine:init', () => {
       });
       await this.reload();
       this.loading = false;
-
       Alpine.store('toast')?.showToast("Produit retiré.");
     }
   });
@@ -96,7 +95,7 @@ document.addEventListener('alpine:init', () => {
     }
   });
 
-  // === 🎞️ AUTO-INIT SWIPER DANS DRAWER
+  // === 🎞️ AUTO-INIT SWIPER DANS DRAWER ===
   Alpine.effect(() => {
     if (Alpine.store('cart').drawerOpen) {
       setTimeout(() => {
@@ -104,10 +103,29 @@ document.addEventListener('alpine:init', () => {
       }, 100);
     }
   });
+
+  // === 🛒 COMPOSANT CART ITEM SIMPLIFIÉ ===
+  Alpine.data('cartItemComponent', (item) => ({
+    item,
+    
+    // Getter pour la quantité actuelle
+    get currentQuantity() {
+      const currentItem = this.$store.cart.cart?.items?.find(i => i.key === this.item.key);
+      return currentItem ? currentItem.quantity : this.item.quantity;
+    },
+    
+    updateQuantity(newQty) {
+      const currentItem = this.$store.cart.cart?.items?.find(i => i.key === this.item.key);
+      const currentQuantity = currentItem ? currentItem.quantity : this.item.quantity;
+      
+      if (parseInt(newQty) !== currentQuantity) {
+        this.$store.cart.updateQuantity(this.item.key, newQty);
+      }
+    }
+  }));
 });
 
 Alpine.start();
-
 
 // === 🧩 SWIPERS INIT ON LOAD ===
 document.addEventListener('DOMContentLoaded', () => {

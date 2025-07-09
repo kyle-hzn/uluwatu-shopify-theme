@@ -1,0 +1,9 @@
+@layer utilities {
+  .pb-safe {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+
+  .h-dvh {
+    height: 100dvh;
+  }
+}
