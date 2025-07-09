@@ -1,0 +1,51 @@
+{%- comment -%}
+snippets/faq-global.liquid
+{%- endcomment -%}
+
+{%- liquid
+  assign faq_items = shop.metafields.custom.faq_items.value
+  assign faq_title = shop.metafields.custom.faq_title.value
+-%}
+{% if faq_items and faq_items != blank %}
+<div class="faq flex flex-col items-center mb-32 p-3 lg:p-8" x-data="{ openIndex: null, hoveredIndex: null }">
+  <div class="faq__wrap w-full lg:w-[50%]">
+    {% if faq_title != blank %}
+      <h3 class="heading-xxl text-primary text-center mb-6">{{ faq_title }}</h3>
+    {% endif %}
+    <div class="flex flex-col gap-4">
+      {% for faq_item in faq_items %}
+      <div 
+        class="accordeon accordeon--default transition-all duration-300 cursor-pointer"
+        :class="{
+          'accordeon--active': openIndex === {{ forloop.index0 }},
+          'opacity-50': hoveredIndex !== null && hoveredIndex !== {{ forloop.index0 }}
+        }"
+        @mouseenter="hoveredIndex = {{ forloop.index0 }}"
+        @mouseleave="hoveredIndex = null"
+        data-faq-item
+      >
+        <div 
+          class="accordeon__head flex justify-between items-center"
+          @click="openIndex === {{ forloop.index0 }} ? openIndex = null : openIndex = {{ forloop.index0 }}"
+        >
+          <p class="heading-sm text-primary">
+            {{ faq_item.question.value }}
+          </p>
+          <div class="button-icon button-icon--default button-icon--filled transition-all">
+            <svg x-show="openIndex !== {{ forloop.index0 }}" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" style="stroke: var(--icon-invert);">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            <svg x-show="openIndex === {{ forloop.index0 }}" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" style="stroke: var(--icon-invert);">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+            </svg>
+          </div>
+        </div>
+        <div x-show="openIndex === {{ forloop.index0 }}" x-transition class="mt-4 body-md text-secondary">
+          {{ faq_item.answer | metafield_tag }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}

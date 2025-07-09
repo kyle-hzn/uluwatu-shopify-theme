@@ -1,40 +1,28 @@
-{% schema %}
-{
-  "name": "FAQ",
-  "tag": "section",
-  "settings": [],
-  "blocks": [
-    {
-      "type": "question",
-      "name": "Question",
-      "settings": [
-        {
-          "type": "text",
-          "id": "question",
-          "label": "Question"
-        },
-        {
-          "type": "textarea",
-          "id": "answer",
-          "label": "Réponse"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 10,
-  "presets": [
-    {
-      "name": "FAQ"
-    }
-  ]
-}
-{% endschema %}
+{%- comment -%}
+sections/faq.liquid - Version avec Meta Objects
+{%- endcomment -%}
+
+{%- liquid
+  assign faq_items = shop.metafields.custom.faq_items.value
+  assign faq_title = shop.metafields.custom.faq_title.value
+  assign use_metafields = section.settings.use_metafields
+  
+  if use_metafields and faq_items
+    assign display_title = faq_title
+  else
+    assign display_title = section.settings.title
+  endif
+-%}
 
 <div class="faq flex flex-col items-center mb-32 p-3 lg:p-8" x-data="{ openIndex: null, hoveredIndex: null }">
   <div class="faq__wrap w-full lg:w-[50%]">
-    <h3 class="heading-xxl text-primary text-center mb-6">FAQ</h3>
+    {% if display_title != blank %}
+      <h3 class="heading-xxl text-primary text-center mb-6">{{ display_title }}</h3>
+    {% endif %}
     <div class="flex flex-col gap-4">
-      {% for block in section.blocks %}
+      {% if use_metafields and faq_items %}
+        {%- comment -%} Affichage depuis les Meta Objects {%- endcomment -%}
+        {% for faq_item in faq_items %}
         <div 
           class="accordeon accordeon--default transition-all duration-300 cursor-pointer"
           :class="{
@@ -43,6 +31,42 @@
           }"
           @mouseenter="hoveredIndex = {{ forloop.index0 }}"
           @mouseleave="hoveredIndex = null"
+          data-faq-item
+        >
+          <div 
+            class="accordeon__head flex justify-between items-center"
+            @click="openIndex === {{ forloop.index0 }} ? openIndex = null : openIndex = {{ forloop.index0 }}"
+          >
+            <p class="heading-sm text-primary">
+              {{ faq_item.question.value }}
+            </p>
+            <div class="button-icon button-icon--default button-icon--filled transition-all">
+              <svg x-show="openIndex !== {{ forloop.index0 }}" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" style="stroke: var(--icon-invert);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              <svg x-show="openIndex === {{ forloop.index0 }}" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" style="stroke: var(--icon-invert);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+              </svg>
+            </div>
+          </div>
+          <div x-show="openIndex === {{ forloop.index0 }}" x-transition class="mt-4 body-md text-secondary">
+            {{ faq_item.answer.value }}
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        {%- comment -%} Affichage depuis les blocks de section {%- endcomment -%}
+        {% for block in section.blocks %}
+        <div 
+          class="accordeon accordeon--default transition-all duration-300 cursor-pointer"
+          :class="{
+            'accordeon--active': openIndex === {{ forloop.index0 }},
+            'opacity-50': hoveredIndex !== null && hoveredIndex !== {{ forloop.index0 }}
+          }"
+          @mouseenter="hoveredIndex = {{ forloop.index0 }}"
+          @mouseleave="hoveredIndex = null"
+          {{ block.shopify_attributes }}
+          data-faq-item
         >
           <div 
             class="accordeon__head flex justify-between items-center"
@@ -64,7 +88,57 @@
             {{ block.settings.answer }}
           </div>
         </div>
-      {% endfor %}
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_metafields",
+      "label": "Utiliser les Meta Objects",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre de la section (fallback)",
+      "default": "Questions fréquentes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Question/Réponse",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Votre question ici"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Réponse",
+          "default": "<p>Votre réponse ici</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "settings": {
+        "use_metafields": true,
+        "title": "Questions fréquentes"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,8 +1,8 @@
+
 <div 
   x-data="{
     isHeaderHidden: false,
     lastScrollY: 0,
-    mobileMenuOpen: false,
     init() {
       this.lastScrollY = window.scrollY;
       window.addEventListener('scroll', () => this.handleScroll());
@@ -11,14 +11,6 @@
       const currentScrollY = window.scrollY;
       this.isHeaderHidden = currentScrollY > this.lastScrollY && currentScrollY > 100;
       this.lastScrollY = currentScrollY;
-    },
-    toggleMobileMenu(open) {
-      this.mobileMenuOpen = open;
-      if (open) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
     }
   }"
   class="header-menu fixed w-full z-50 transition-transform duration-300"
@@ -31,26 +23,31 @@
     <!-- Logo -->
     <a href="{{ routes.root_url }}" class="text-xl font-bold">Purely</a>
 
-    <!-- Burger icon -->
+    <!-- 🍔 Burger icon -->
     <button 
-      @click="toggleMobileMenu(true)" 
+      @click="$store.mobileMenu.toggle(true)" 
       class="button-icon button-icon--large button-icon--filled"
       aria-label="Ouvrir le menu"
     >
       <img src="{{ 'menu-white.static.svg' | asset_url }}" alt="Icone menu" class="w-6 h-6" width="24" height="24">
     </button>
 
-    <a href="{{ routes.cart_url }}" class="cart-button button-icon button-icon--large button-icon--filled relative transition-colors">
+    <!-- 🛒 Panier -->
+    <button
+      @click="$store.cart.openDrawer()"
+      class="cart-button button-icon button-icon--large button-icon--filled relative transition-colors"
+      aria-label="Ouvrir le panier"
+    >
       <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Cart" class="w-6 h-6" width="24" height="24">
       <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
         {{ cart.item_count }}
       </span>
-    </a>
+    </button>
   </div>
 
   <!-- 🟢 DESKTOP HEADER ONLY -->
   <div class="hidden lg:flex px-8 py-3 justify-between items-center relative">
-  <!-- Left: Logo -->
+    <!-- Left: Logo -->
     <a href="{{ routes.root_url }}" class="text-xl font-bold">Purely</a>
 
     <!-- Center: Navigation -->
@@ -70,7 +67,7 @@
       >
         <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Cart" class="w-6 h-6" width="24" height="24">
         <span 
-          class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+          class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center body-sm"
           x-text="$store.cart.cart?.item_count || 0"
         >
           0
@@ -81,7 +78,7 @@
 
   <!-- 🔵 MOBILE DRAWER -->
   <div 
-    x-show="mobileMenuOpen" 
+    x-show="$store.mobileMenu.open" 
     x-transition:enter="transition ease-out duration-300"
     x-transition:enter-start="opacity-0 translate-x-full"
     x-transition:enter-end="opacity-100 translate-x-0"
@@ -89,23 +86,28 @@
     x-transition:leave-start="opacity-100 translate-x-0"
     x-transition:leave-end="opacity-0 translate-x-full"
     class="fixed inset-0 z-50 lg:hidden"
-    @click.self="toggleMobileMenu(false)"
+    @click.self="$store.mobileMenu.toggle(false)"
   >
-    <div class="fixed right-0 top-[36px] h-[calc(100vh-36px)] w-full flex flex-col justify-between">
+    <div class="drawer-menu fixed right-0 top-[36px] h-[calc(100vh-36px)] w-full flex flex-col justify-between">
       
       <!-- Top row: logo, cart, close -->
       <div class="header-menu__mobile__top-wrap">
         <div class="header-menu__mobile__head flex justify-between items-center p-3">
           <a href="{{ routes.root_url }}" class="text-xl font-bold">Purely</a>
-          <button @click="toggleMobileMenu(false)" class="button-icon button-icon--large button-icon--filled">
+          <button @click="$store.mobileMenu.toggle(false)" class="button-icon button-icon--large button-icon--filled">
             <img src="{{ 'close-white.static.svg' | asset_url }}" alt="icone fermer" class="w-6 h-6" width="24" height="24">
           </button>
-          <a href="{{ routes.cart_url }}" class="cart-button button-icon button-icon--large button-icon--filled relative transition-colors">
+          <!-- 🛒 Panier -->
+          <button
+            @click="$store.cart.openDrawer()"
+            class="cart-button button-icon button-icon--large button-icon--filled relative transition-colors"
+            aria-label="Ouvrir le panier"
+          >
             <img src="{{ 'add_shopping_cart.static.svg' | asset_url }}" alt="Cart" class="w-6 h-6" width="24" height="24">
             <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
               {{ cart.item_count }}
             </span>
-          </a>
+          </button>
         </div>
       </div>
       <div class="header-menu__mobile__btm-wrap p-3">

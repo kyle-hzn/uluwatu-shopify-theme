@@ -1,6 +1,12 @@
+@use '../base/variables';
+
 .header-menu {
     background: rgba(247, 247, 247, 0.70);
     backdrop-filter: blur(8px);
+}
+
+.drawer-menu {
+  background-color: variables.$bg-primary;
 }
 
 .header-menu__links {

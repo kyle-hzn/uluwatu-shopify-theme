@@ -16,10 +16,15 @@
     {{ content_for_header }}
   </head>
   <body x-data x-init="
-    fetch('/cart.js')
-      .then(res => res.json())
-      .then(data => $store.cart.cart = data);
-  " 
+  fetch('/cart.js')
+    .then(res => res.json())
+    .then(data => {
+      data.items.forEach(item => {
+        item.quantity = Number(item.quantity)
+      });
+      $store.cart.cart = data;
+    });
+" 
   x-cloak>
     <div id="app">
       <div x-data>
